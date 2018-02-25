@@ -18,6 +18,7 @@
 .topnav a:hover {
     background-color: #ddd;
     color: black;
+    text-decoration: none;
 }
 
 /* Add a color to the active/current link */
@@ -53,6 +54,12 @@
   padding: 15px;
 }
 
+.table-image {
+  width: 150px;
+  height: 200px;
+  padding: 5px;
+}
+
 .table-header {
   font-weight: bold;
   font-size: 20px;
@@ -67,15 +74,26 @@
 }
 
 .table,tr {
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
+  border-bottom: 3px solid black;
+  border-right: 3px solid black;
+  border-left: 3px solid black;
+  border-top: 3px solid black;
+}
+
+.lower-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
 
 
 .post-list {
   margin: auto;
-  width:50%;
+  width:50%;ttttttttttttttttttttttttttttt
 }
 
 
