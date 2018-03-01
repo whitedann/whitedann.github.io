@@ -12,20 +12,20 @@
   </head>
 
 <body>
-
+<a name="home"></a>
 <!--top bar -->
 <div id="top-bar">
   <h1>welcome</h1>
   <!--Navbar-->
   <div class="topnav">
     <a href="#home">home</a>
-    <a href="#contact">archive</a>
-    <a href="#contact">about</a>
-    <a href="#about">contact</a>
+    <a href="#archive">archive</a>
+    <a href="#about">about</a>
+    <a href="#contact">contact</a>
   </div>
   <br>
 </div>
-<img style="margin:auto;display:block;width:300px;" src="assets/tree.jpg">
+<img style="margin:auto;display:block;width:300px" src="assets/tree.jpg">
 <br>
 <p class = "intro">This is the internet home of Daniel White. I keep some of my work here. <br>
   This will always be a work in progress. Please come back again!</p>
@@ -64,7 +64,7 @@
           <div>1991</div>
         </td>
         <td class="post-title">
-          <a href="#postLink">Portable GPS Speedometer</a>
+          <a href="gpsSpeedometer.html">Portable GPS Speedometer</a>
         </td>
         <td class="post-content">
           <p class> Using a GPS chip and an Arduino microcontroller, I made a portable speedometer/odometer</p>
@@ -79,7 +79,7 @@
           <div>1991</div>
         </td>
         <td class="post-title">
-          <a href="#postLink">Lightbulb Spectroscopy</a>
+          <a href="lightbulbFun.html">Lightbulb Spectroscopy</a>
         </td>
         <td class="post-content">
           I put a few generic lightblulbs in front of a spectrometer to see what would happen
@@ -91,16 +91,24 @@
    </table>
 </div>
 
+<a name="contact"></a>
 <div class="contact-header">
 	<br>
 	<br>
 	<h1 style="text-align: center; border-bottom: 4px solid black; width:30%; margin: auto">Contact Me</h1>
-		<form style="margin:auto">
-		Name:
-		<input type="text" name="Name">
-		Email:
-		<input type="text" email="Email">
+	<p style="text-align:center;margin:auto;width:35%;padding-top: 30px">Want to send me a message? Recommendations? Have a question about me or something on this site? ...feel free! I promise to respond as soon as possible</p>
+	<div style="text-align:center; margin-top: 20px">
+		<form>
+		<input placeholder="Name" type="text" name="Name">
+		<input placeholder="Email" type="text" name="Email">
 		</form>
+		<form style="margin-top:20px">
+		<textarea placeholder="Message" rows="5" cols="50" name="Message"></textarea>
+		</form>
+		<form>
+		<button type="submit" action="mailto:whitedann@gmail.com?name=Name&message=Message">Send</button>
+		</form>
+	</div>
 </div>
 
 </div>
