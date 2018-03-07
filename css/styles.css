@@ -28,25 +28,32 @@
 }
 
 .main-content {
-    margin: auto;
-    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 45%;
     border: 1px solid black;
+    padding:10px;
 }
 
 .content-heading {
-    font-size: 30px;
-    padding-bottom: 20px;
+    font-size: 40px;
+    padding-bottom:10px;
+    margin-bottom: 30px;
+    border-bottom:5px solid black;
 }
 
 .content-image-small {
     border: 2px solid black;
     display:block;
-    width: 
+    float:right;
     margin: 10px;
+    width:25%;
 }
 
 .content-image-medium {
-    width = 50%;
+    width:50%;
+    float:right;
 }
 
 body {
@@ -67,17 +74,17 @@ body {
 
 .post-date{
   text-align: center;
-  padding: 15px;
+  padding: 10px;
 }
 
 .post-title {
   text-align: left;
-  padding: 15px;
+  padding: 10px;
 }
 
 .post-content {
   text-align: left;
-  padding: 15px;
+  padding: 10px;
 }
 
 .table-image {
@@ -100,10 +107,7 @@ body {
 }
 
 .table,tr {
-  border-bottom: 3px solid black;
-  border-right: 3px solid black;
-  border-left: 3px solid black;
-  border-top: 3px solid black;
+  border: 3px solid black;
 }
 
 .lower-footer {
@@ -127,25 +131,39 @@ body {
 }
 
 .intro {
+  font-size: 18px;
 	text-align: center;
 	border: 2px solid grey;
 	margin: auto;
-	width:35%;
-	padding: 5px;
+	width:27%;
+	padding: 10px;
 	border-radius: 15px;
-	/*font-style: oblique;*/
 	font-weight: bold;
 }
 
 .botbutton{
 	width: 50px;
-	height:50px;
+	height: 50px;
 }
 
 
 .post-list {
   margin: auto;
-  width:50%;
+  width:40%;
+}
+
+.post-title a{
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+}
+
+.post-title a:hover{
+  text-decoration: none;
+  color:red;
+  text-align: center;
 }
 
 
@@ -154,10 +172,17 @@ body {
   border: 1px solid rgb(221, 221, 221);
   font-size: 14px;
   line-height: 13em;
-  padding: 1em;
-  text-align:left;
+  text-align:center;
   font-family: Courier New,monospace;
   line-height:normal;
   white-space:normal;
-  
+  padding: 1em;  
+}
+
+.code-box2{
+  background-color: #f9f9f9;
+  border: 1px solid rgb(221, 221, 221);
+  font-size: 14px;
+  font-family: Courier New,monospace;
+  padding: 1em;  
 }
