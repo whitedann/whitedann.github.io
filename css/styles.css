@@ -51,9 +51,11 @@
     width:25%;
 }
 
-.content-image-medium {
-    width:50%;
-    float:right;
+.content-image-whole{
+    width:80%;
+    margin:auto;
+	border: 2px solid black;
+	
 }
 
 body {
