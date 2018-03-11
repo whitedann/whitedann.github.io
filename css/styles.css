@@ -28,12 +28,12 @@
 }
 
 .main-content {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    width: 45%;
+    margin-left:auto;
+    margin-right:auto;
+    width: 55%;
     border: 1px solid black;
-    padding:10px;
+    padding: 15px;
+    background-color: #e0e0eb;
 }
 
 .content-heading {
@@ -52,9 +52,13 @@
 }
 
 .content-image-whole{
-    width:80%;
+    width:65%;
+    border: 2px solid black;
+    display:block;
     margin:auto;
-	border: 2px solid black;
+      -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+          box-sizing: border-box;
 	
 }
 
@@ -69,7 +73,8 @@ body {
 
 #top-bar p {
   font-size:17px;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 50%;
   font-family: sans-serif;
 }
