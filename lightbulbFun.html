@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
   </head>
 
@@ -15,7 +15,7 @@
 <a name="home"></a>
 <!--top bar -->
 <div id="top-bar">
-  <h1>welcome</h1>
+  <h1>d.white</h1>
   <!--Navbar-->
   <div class="topnav">
     <a href="index.html">home</a>
@@ -25,3 +25,99 @@
   </div>
   <br>
 </div>
+
+<div class="main-content">
+    <h1 class = "content-heading">Lightbulb Spectroscopy</h1>
+    <p>
+      <div>
+        <img class="content-image-small" style="margin-right:10%;margin-left:5%" src="assets/lamps.png">
+      </div>
+      <br>
+      In college I had the opportunity to play around with the lab spectrometer after I had finished my work. We had used it earlier in the year to observe the Hydrogen-Deuterium isotope shift and the emission spectra of some different gases, but some of us wondered what would happen if we used it to measure the emissions of a simple light bulb. So one day I brought in two small incandescent bulbs from Radio Shack, one rated at 1.5 volts and another at 12 volts, powered them up, and began to measure the spectra. I was primarily interested in measuring the emissions of the lightbulbs in the visible spectrum which ranges from about 400nm (blue light) to about 700nm (red light).
+    </p>
+      <br>
+    <h5>Measuring the emissions of light bulbs</h5>
+      The spectrometer measures the intensity of each wavelength by turning incident photons into current. The more intense the light, the more current. This current was then converted into a voltage which was measured with a voltmeter, thus the intensity is scaled in volts. I set the spectrometer to sweep through the wavelengths slowly, so I could get a high resolution curve. Eventually, I got the spectra for the two lamps:
+      <br>
+      <br>
+    <div style="width:35%;margin-left: 10%;margin-right:0;display:inline-block">
+        <img style="border:2px solid black;width:100%" src="assets/1.5VSpectrum.jpg">
+      <p style="text-align:center;font-size:13px">1.5V Lamp visible light output</p>
+    </div>
+    <div style="width:35%;margin-left: 8%;margin-right:8%;display:inline-block">
+      <img style="border:2px solid black;width:100%" src="assets/9VSpectrum.jpg">
+      <p style="text-align:center;font-size:13px">9V Lamp visible light output</p>
+    </div>
+    <br>
+    Both of the lamps have the same basic shape: one strong peak in the yellowish(620nm) region, and a smaller peak in the greenish (500nm) region.
+    I was somewhat surprised by the data. Assuming the lightbulb filaments were tungsten seemed logical that the spectra would resemble a black body spectrum. Seeing that the light bulbs emissions peaked somewhere in the orange-yellow area (~620 nm), I estimated that the bulb's filament was reaching a temperature of about 4800 K. I plotted the theoretical spectrum of black body at that temperature using Planck's Law so that I could have something to compare my spectra to:
+    <br>
+    <br>
+    <br>
+    <img style="margin-left:30%;width:40%;border:2px solid black" src="assets/blackbody_spectrum.png">
+    <p style="text-align:center;font-size:13px">Predicted light output for a blackbody @ 4800K</p>
+    <br>
+    Bad news...my spectra don't look anything like the predicted spectrum. After doing some research I found the supposed emission spectrum of a standard GE lightbulb, and it looks more or less like the blackbody curve above (see the figure below on the left). So...what's wrong with my spectra? Well, while I was on the GE website, I also looked at the emission spectrum for LED lightbulbs (below right figure). Both the LED spectra on the GE website and the peaks I observed in my lamps seemed to share the same overall double-peak shape. So I guess maybe the lamps I used were LED bulbs and not incadescent lamps. Unfortunately, I don't have them anymore and can't check to be sure, but I can't think of any other reason for the spectra to be so different then the theory. 
+    <br>
+    <br>
+    <br>
+        <div style="width:35%;margin-left: 10%;margin-right:0;display:inline-block">
+        <img style="border:2px solid black;width:100%" src="assets/Emission-spectrum-of-incandescent-bulb.png">
+      <p style="text-align:center;font-size:13px">The emission spectrum in the visible range of a typical incandescent bulb.</p>
+    </div>
+    <div style="width:35%;margin-left: 8%;margin-right:8%;display:inline-block">
+      <img style="border:2px solid black;width:100%" src="assets/Emission-spectrum-of-LED-bulb.png">
+      <p style="text-align:center;font-size:13px">The emission spectrum of a typical LED bulb on a warm, white setting.</p>
+    </div>
+    <br>
+    <br>
+    <br>
+    <h5>Measuring the Absorption of Colored Dyes</h5>
+    <p>
+      I also brought in some food coloring to try to observe how dyes affect the light emitted by the lamps. I placed a glass slide filled with a small amount of dye in between the light source (I used the 1.5V light bulb) and the spectrometer slit. I recorded the spectra for a both red and green dyes and compared them to the original spectrum of the 1.5V lamp. Then I overlayed all three spectra on top of each other to get a visual idea of how the two colors affected the original spectrum.
+      <br>
+      <br>
+      <div style="width:55%;margin-left: 24%;margin-right:22%;display:inline-block">
+        <img style="border:2px solid black;width:100%" src="assets/absorbance.jpg">
+      <p style="text-align:center;font-size:13px">Blue: Original (No Slide)<br> Red: Red Dye<br> Green: Green Dye</p>
+      </div>
+      <br>
+      <br>
+    I thought that it would be interesting to calculate the absorbance curves for both of these curves, to see how much of each type of color each dye was subtracting from the lamp's output. I took the original spectra and subtracted the absorbance spectra to come up with the following absorbance spectra:
+    <br>
+    <br>
+    <br>
+    <div style="width:35%;margin-left: 10%;margin-right:0;display:inline-block">
+        <img style="border:2px solid black;width:100%" src="assets/redabsorb.jpg">
+      <p style="text-align:center;font-size:13px">Red slide absorption spectrum</p>
+    </div>
+    <div style="width:35%;margin-left: 8%;margin-right:8%;display:inline-block">
+      <img style="border:2px solid black;width:100%" src="assets/greenabsorb.jpg">
+      <p style="text-align:center;font-size:13px">Green slide absorption spectrum</p>
+    </div>
+    <br>
+    <br>
+    The red dye seemed to be more effective at blocking a wide range of non-red light, whereas the green dye block wavelengths specifically in the 600-650nm range. 
+    </p>
+
+    
+
+
+    
+
+</div>  
+
+<div class="upper-footer">
+  <div>
+  <p style="font-family: 'Oswald', sans-serif; margin: 0">AROUND THE WEB</p>
+  <a href="https://github.com/whitedann"><img class="botbutton" src="assets/github.svg"></a>
+  <a href="https://www.linkedin.com/in/daniel-white-76434a66/"><img class="botbutton" src="assets/linkedin_circle.png"></a>
+  </div>
+</div>
+<div class="lower-footer">
+  daniel white
+</div>
+
+</body>
+
+</html>

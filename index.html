@@ -26,16 +26,13 @@
   <br>
 </div>
 <br>
-<br>
-<br>
-<p class = "intro">This is the internet home of Daniel White. I keep some of my work here.<br>
-  This will always be a work in progress. Please come back again!<br></p>
-<br>
+<p class = "intro">This is the internet home of Daniel White. I document some of my projects here as well as some other things. The information on this site is presented in a casual way. I usually just play with stuff until it works. If you want more detail on something or if you see an inaccuracy, feel free to shoot me an <a href="#contact">e-mail</a>. <br><br> This will always be a work in progress. Please come back again!<br>
+</p>
 <br>
 <br>
 
 <div>
-  <h1 style="text-align: center">New Stuff</h1>
+  <h1 style="text-align: center">New</h1>
 </div>
 <!--New Posts Window-->
 <div class="content">
@@ -43,14 +40,14 @@
     New Stuff
   </div> -->
 
-<div class="posts">
+<div>
   <table class="post-list">
       <tr>
         <td class="post-title">
           <a href="FMRadioTransmitter.html">FM Radio Transmitter</a>
         </td>
         <td class="post-content">
-          Short range FM radio transmitter (50meters?) with variable output frequency. (I have no idea what I'm doing)
+          Short range FM radio transmitter (50meters?) with variable output frequency. 
         </td>
         <!--ensure that picture margin+width is constant at 225px!-->
         <td>
@@ -91,17 +88,17 @@
 	<br>
 	<br>
 	<h1 style="text-align: center; border-bottom: 4px solid black; width:30%; margin: auto">Contact Me</h1>
-	<p style="text-align:center;margin:auto;width:35%;padding-top: 30px">Want to send me a message? Recommendations? Are you a long lost friend that I have lost touch with? ...feel free to message me! I promise to respond as soon as possible</p>
+	<p style="text-align:center;margin:auto;width:35%;padding-top: 30px">Want to send me a message? Questions? Suggestions?  ...feel free to message me! I promise to respond as soon as possible</p>
 	<div style="text-align:center; margin-top: 20px">
-		<form>
-		<input placeholder="Name" type="text" name="Name">
-		<input placeholder="Email" type="text" name="Email">
-		</form>
-		<form style="margin-top:20px">
-		<textarea placeholder="Message" rows="5" cols="50" name="Message"></textarea>
-		</form>
-		<form>
-		<button type="submit" action="mailto:whitedann@gmail.com?name=Name&message=Message">Send</button>
+		<form method="post" action="acknowledge.php">
+      <div>
+		    <input placeholder="Name" type="text" name="name" id="name">
+		    <input placeholder="Email" type="text" name="email" id="email">
+      </div>
+      <div style="margin-top:20px">  
+		    <textarea placeholder="Message" rows="5" cols="50" name="message" id="message"></textarea>
+      </div>  
+		  <input type="submit" name="send" value="Send Message">
 		</form>
 	</div>
 </div>

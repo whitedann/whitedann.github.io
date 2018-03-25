@@ -31,8 +31,7 @@
     margin-left:auto;
     margin-right:auto;
     width: 55%;
-    border: 1px solid black;
-    padding: 15px;
+    padding: 30px;
     background-color: #e0e0eb;
 }
 
@@ -75,6 +74,7 @@ body {
   font-size:17px;
   margin-left: auto;
   margin-right: auto;
+  height
   width: 50%;
   font-family: sans-serif;
 }
@@ -114,7 +114,9 @@ body {
 }
 
 .table,tr {
-  border: 3px solid black;
+  border-radius: 25px;
+  border: 10px solid black;
+  padding: 20px; 
 }
 
 .lower-footer {
@@ -138,14 +140,11 @@ body {
 }
 
 .intro {
-  font-size: 18px;
+  font-size: 20px;
 	text-align: center;
-	border: 2px solid grey;
 	margin: auto;
-	width:27%;
+	width:40%;
 	padding: 10px;
-	border-radius: 15px;
-	font-weight: bold;
 }
 
 .botbutton{
