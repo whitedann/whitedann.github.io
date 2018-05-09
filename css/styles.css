@@ -32,7 +32,7 @@
     margin-right:auto;
     width: 55%;
     padding: 30px;
-    background-color: #e0e0eb;
+    background-color: #dedce5;
 }
 
 .content-heading {
@@ -114,8 +114,10 @@ body {
 }
 
 .table,tr {
-  border-radius: 25px;
-  border: 10px solid black;
+  border-bottom: 5px solid grey;
+  border-right: 5px solid grey;
+  border-left: 5px solid grey;
+  border-top: 5px solid grey;
   padding: 20px; 
 }
 
