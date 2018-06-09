@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+  </head>
+
+<body>
+<a name="home"></a>
+<!--top bar -->
+<div id="top-bar">
+  <h1>d.white</h1>
+  <!--Navbar-->
+  <div class="topnav">
+    <a href="index.html">home</a>
+    <a href="#archive">archive</a>
+    <a href="#about">about</a>
+    <a href="#contact">contact</a>
+  </div>
+  <br>
+</div>
+
+<div class="main-content">
+    <h1 class = "content-heading">Animations with Python</h1>
+    <p>
+    In this post, I will explain how I animated some simple physical systems using the python plotting library matplotlib.
+    To start, each system use a class which contains:
+    <ol>
+	    <li>A method which defines and returns the differential equations describing the system's motion.</li>
+	    <li>A method which solves the system of equations and returns the coordinates of each mass for each "step" in time.</li>
+	    <li>An initial state for the system, as well as other defined constants needed for each system.</li>
+    </ol>
+    I wrote another post showing how to produce the equations of motion for each case here.
+    </p>
+    <h2>Single Pendulum</h2>
+    <p>
+    We want to draw (x,y) as a function time using
+    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\theta} = -\frac{g}{l}sin(\theta)" border="0"/>
+	<pre class="code-box2">
+class Pendulum():
+
+    def __init__(self,
+                 g = 9.8,
+                 L = 2.0):
+        
+        self.init_state = [np.radians(35.0), 0]
+        self.time = np.arange(0, 50.0, 0.025) 
+        self.g = g
+        self.L = L
+
+    def equation(self, y0,t):
+
+        theta, thetaDot = y0
+        f = [thetaDot, -(self.g/self.L)*sin(theta)]
+        return f
+
+    def equationApprox(self, y0, t):
+
+        theta, thetaDot = y0
+        g = [thetaDot, -(self.g/self.L)*theta]
+        return g
+
+    def solve_ODE(self):
+       
+        """Without small-angle approximation"""
+        self.state = odeint(self.equation, self.init_state, self.time)
+        x1 = sin(self.state[:, 0])*self.L
+        y1 = -1*cos(self.state[:, 0])*self.L
+
+        """With small-angle approximation:"""
+        self.state2 = odeint(self.equationApprox, self.init_state, self.time)
+        x2 = sin(self.state2[:, 0])*self.L
+        y2 = -1*cos(self.state2[:, 0])*self.L
+
+        return x1, y1, x2, y2
+	</pre>
+    </p>
+
+</div>
+
+<div class="upper-footer">
+  <div>
+  <p style="font-family: 'Oswald', sans-serif; margin: 0">AROUND THE WEB</p>
+  <a href="https://github.com/whitedann"><img class="botbutton" src="assets/github.svg"></a>
+  <a href="https://www.linkedin.com/in/daniel-white-76434a66/"><img class="botbutton" src="assets/linkedin_circle.png"></a>
+  </div>
+</div>
+<div class="lower-footer">
+  <a style="text-decoration: none; color: white" href="index.html#home">top</a>
+</div>
+
+</body>
+
+</html>

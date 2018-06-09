@@ -61,6 +61,13 @@
 	
 }
 
+.equation-center{
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
 body {
 	background-color: white;
 }

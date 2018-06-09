@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+  </head>
+
+<body>
+<a name="home"></a>
+<!--top bar -->
+<div id="top-bar">
+  <h1>welcome</h1>
+  <!--Navbar-->
+  <div class="topnav">
+    <a href="index.html">home</a>
+    <a href="#archive">archive</a>
+    <a href="#about">about</a>
+    <a href="#contact">contact</a>
+  </div>
+  <br>
+</div>
+
+<div class="main-content">
+    <h1 class = "content-heading">Producing the Equations for Pendulum Systems</h1>
+    <p>
+    <h2>Simple Pendulum</h2>
+    We'll start at the very beginning by producing the equations of motion with lagrangian mechanics. Then we will integrate the system of equations using Python's scipy library and finally plot the result using matplotlib. Starting with the Euler-Lagrange equation,
+    <br>
+    <br>
+    <img style="display:block; margin: auto; width: 20%"  src="http://latex.codecogs.com/svg.latex?\frac{\mathrm{d}}{\mathrm{d}t} \left ( \frac {\partial  L}{\partial \dot{q}_j} \right ) =  \frac {\partial L}{\partial q_j} " border="0"/>
+    <br>
+    Where the lagrangian has the definition,
+    <br>
+    <br>
+    <img style="display:block; margin: auto; width: 15%" src="http://latex.codecogs.com/svg.latex?\mathnormal{L = T - U}" border ="0"/>
+    <br>
+    The quantity T and U represent the system's total kenetic and potential energy, respectively. These are both easy to to define if we assume that the path of the pendulum is contrained to lie on a path of radius <i>r</i> (in this case, the length of the pendulum). The kinetic and potential energy are:
+    <br>
+    <br>
+    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?T = \frac{1}{2}mv^{2} =  \frac{1}{2}m\dot{(\theta l)}^{2} = \frac{1}{2}m\dot{\theta}^{2}l^{2}" border="0"/>
+    <br>
+    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?U = mgl - mglcos(\theta) = mgl(1- cos(\theta))" border = "0"/>
+    <br>
+    Then the lagrangian is,
+    <br>
+    <br>
+    <img style="display: block; margin-right: auto;margin-left: auto" src="http://latex.codecogs.com/svg.latex?L = \frac{1}{2}m\dot{\theta}^{2}l^{2} - mgl(1 - cos(\theta))" border="0"/>
+    <br>
+    Which we can insert into the Euler-Lagrange equation, 
+    <br>
+    <br>
+    <div style="text-align: center">
+	    <img class="equation-center" style="display: inline-block; margin-right: 30px"  src="http://latex.codecogs.com/svg.latex?\frac{d}{dt}\frac {\partial L}{\partial\dot{\theta}} = ml^{2}\ddot{\theta}"border="0"/>   
+    	<img class="equation-center" style="display: inline-block" src="http://latex.codecogs.com/svg.latex?\frac{\partial L}{\partial \theta} = -mglsin(\theta)"border="0"/>
+    </div>
+    <br>
+    And solving for theta we have
+    <br>
+    <br>
+    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\theta} = -\frac{g}{l}sin(\theta)" border="0"/>
+    <br>
+    This differential equation is not easily solved. One way of approaching it is to use the "small angle" approximation: if we assume a small angle, we can use the approximation that theta = sin(theta) and it becomes the equation of a simple harmonic oscillator. However, it can also be solved numerically with scipy's odeint function that uses the Runge-Kutta method of integration.
+    <br>
+    <br>
+    <h2>System of Two Coupled Pendulums</h2>
+    
+
+    
+   </p>
+</div>  
+
+<div class="upper-footer">
+  <div>
+  <p style="font-family: 'Oswald', sans-serif; margin: 0">AROUND THE WEB</p>
+  <a href="https://github.com/whitedann"><img class="botbutton" src="assets/github.svg"></a>
+  <a href="https://www.linkedin.com/in/daniel-white-76434a66/"><img class="botbutton" src="assets/linkedin_circle.png"></a>
+  </div>
+</div>
+<div class="lower-footer">
+  daniel white
+</div>
+
+</body>
+
+</html>
