@@ -40,45 +40,72 @@
     </p>
     <h2>Single Pendulum</h2>
     <p>
-    We want to draw (x,y) as a function time using
-    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\theta} = -\frac{g}{l}sin(\theta)" border="0"/>
-	<pre class="code-box2">
+    We want to draw (x,y) as a function time using from the system of equations
+    <br>
+    <br>
+    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?\begin{pmatrix} z_{1} = \dot{\theta}\\ z_{2} = -\frac{g}{l}sin(\theta) \end{pmatrix}" border="0"/>
+    <br>
+    We use the built-in function odeint from the SciPy library to solve for the values of theta as a function of time. We need to supply odeint with the function, the initial state and the time axis as paramters. So, we will initialize the pendulum object with init_state at 35 degrees and a time interval of .025 from 0 to 50. This produces 2000 frames which will be rendered at 40fps over 50 seconds.
+    </p>
+    <p>
+    We can also use this time to define the length of the Pendulum L, and the acceleration due to gravity, g.
+    </p>
+    <pre class="code-box2">
 class Pendulum():
 
     def __init__(self,
                  g = 9.8,
                  L = 2.0):
-        
+
+	"""init_state has the form [theta, thetaDot]"""
         self.init_state = [np.radians(35.0), 0]
         self.time = np.arange(0, 50.0, 0.025) 
         self.g = g
         self.L = L
-
+	</pre>
+	<p>
+	Now let's create a callable function for odeint that returns the system we want to intergrate, and initialize it to the initial state that we pass to odeint (this will be init_state).
+	</p>
+	<pre class="code-box2">
     def equation(self, y0,t):
 
         theta, thetaDot = y0
         f = [thetaDot, -(self.g/self.L)*sin(theta)]
         return f
+	</pre>
+	<p>
+	Then let's create a function which perfroms the odeint call, and then converts the data into (x,y) coordinates so that we can more easily plot it.
 
-    def equationApprox(self, y0, t):
-
-        theta, thetaDot = y0
-        g = [thetaDot, -(self.g/self.L)*theta]
-        return g
-
+	<pre class="code-box2">
     def solve_ODE(self):
        
-        """Without small-angle approximation"""
         self.state = odeint(self.equation, self.init_state, self.time)
         x1 = sin(self.state[:, 0])*self.L
         y1 = -1*cos(self.state[:, 0])*self.L
 
-        """With small-angle approximation:"""
-        self.state2 = odeint(self.equationApprox, self.init_state, self.time)
-        x2 = sin(self.state2[:, 0])*self.L
-        y2 = -1*cos(self.state2[:, 0])*self.L
+        return x1, y1
+	</pre>
+	<p>
+	By calling the solve_ODE method on a pendulum object, we can create the data we need to animate the pendulum. Then we can setup the window and run the animation using matplotlib.</p>
+	<p>
+	The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames.
+	<p>
+	<pre class="code-box2">
+def animateSinglePendulum(num, data1, line):
+    """draw the pendulum as line """
+    line.set_data([0,data1[0,num]], [0,data1[1,num]])
 
-        return x1, y1, x2, y2
+    """(xdata, ydata) is the (time, angular displacement) of the displacement plot""" 
+    """the time data is the same for both pendulums, so xdata is used both times"""
+    xdata.append(num/40.0)
+    ydata1.append(np.degrees(np.arctan(data1[0,num]/data1[1,num])))
+    
+    line4.set_data(xdata,ydata1)
+
+    """Update the data for the time"""
+    time_text.set_text('t = ' + str(round(num*0.025, 1)) + 's')
+
+    return line
 	</pre>
     </p>
 
