@@ -125,12 +125,18 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	</pre>
 	<p>
 	I plotted the pendulums for the two cases discussed here, and added a few bells and whistles to compare the accuracy simulation using the small angle approximation and the one that doesn't.
-	<br>
-	<div style="margin:auto; text-align:center" >
-		<video src="assets/sPend35.mp4" style="margin-right: auto; margin-left:auto; width: 45%" loop autoplay></video>
-		<video src="assets/sPend15.mp4" style="margin-right: auto; margin-left:auto; width: 45%" loop autoplay></video>
-	</div>
 	</p>
+	<br>
+	<div style="margin:auto; text-align:center">
+		<div style="margin: auto; width: 49%; display:inline-block">
+			<video src="assets/sPend35.mp4" style="width: 100%; margin-right: auto; margin-left:auto" loop autoplay="true"></video>
+			<p style="font-size: 10px">Initial Angle = 35 degrees</p>
+		</div>
+		<div style="margin: auto; width: 49%; display:inline-block">
+			<video src="assets/sPend15.mp4" style="width: 100%; margin-right: auto; margin-left:auto" loop autoplay="true"></video>
+			<p style="font-size: 10px">Initial Angle = 15 degrees</p>
+		</div>
+	</div>
 	The red pendulum represents the less accurate model using the approximation and the blue is the the more accurate model. I added a plot on the top that shows you a comparasion of the theta versus time for each of the two simulations, as well showing the phase difference (how delayed the inaccurate model is at every moment in time).
 	</p>
 </div>
