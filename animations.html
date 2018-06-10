@@ -27,7 +27,8 @@
 </div>
 
 <div class="main-content">
-    <h1 class = "content-heading">Animations with Python</h1>
+    <h1 class = "content-heading">Physics with Python</h1>
+    <video src="testdubpend.mp4" style="margin-left:auto; margin-right:auto; width: 600px"controls></video>
     <p>
     In this post, I will explain how I animated some simple physical systems using the python plotting library matplotlib.
     To start, each system use a class which contains:
@@ -51,6 +52,11 @@
     We can also use this time to define the length of the Pendulum L, and the acceleration due to gravity, g.
     </p>
     <pre class="code-box2">
+    import numpy as np
+    from matplotlib import pyplot as plt
+    from scipy.integrate import odeint
+    import matplotlib.animation as animation
+
 class Pendulum():
 
     def __init__(self,
@@ -86,29 +92,48 @@ class Pendulum():
         return x1, y1
 	</pre>
 	<p>
-	By calling the solve_ODE method on a pendulum object, we can create the data we need to animate the pendulum. Then we can setup the window and run the animation using matplotlib.</p>
+	By calling the solve_ODE method on a pendulum object, we can create the data we need to animate the pendulum and save it as an array.
+	</p>
+	<pre class="code-box2">
+	pend = Pendulum()
+	singlePendulumData = np.array(pend.solve_ODE())
+	</pre>
 	<p>
-	The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames.
+
 	<p>
 	<pre class="code-box2">
-def animateSinglePendulum(num, data1, line):
-    """draw the pendulum as line """
-    line.set_data([0,data1[0,num]], [0,data1[1,num]])
 
-    """(xdata, ydata) is the (time, angular displacement) of the displacement plot""" 
-    """the time data is the same for both pendulums, so xdata is used both times"""
-    xdata.append(num/40.0)
-    ydata1.append(np.degrees(np.arctan(data1[0,num]/data1[1,num])))
-    
-    line4.set_data(xdata,ydata1)
-
-    """Update the data for the time"""
-    time_text.set_text('t = ' + str(round(num*0.025, 1)) + 's')
-
-    return line
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    line, = ax.plot([],[])
 	</pre>
     </p>
+	<p>
+	We start by creating a figure object and putting a subplot within it "ax" which takes up the whole window. Then we initialize a line object to represent the pendulum. The line object is just a set of tuple coordinates with the form line[xdata, ydata].
+	<br>
+	<br>
+	The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames. Finally, we call the animation function putting in all the pieces:
+	</p>
+	<pre class="code-box2">
+def animateSinglePendulum(num, data, line):
+    line.set_data([0,data[0,num]], [0,data[1,num]])
+    return line
 
+ani = animation.FuncAnimation(fig, animateSinglePendulum, 
+	interval=1, frames=2000, fargs=(singlePendulumData, line),
+	init_func=initSinglePendulumWindow, repeat=False)
+	</pre>
+	<p>
+	I plotted the pendulums for the two cases discussed here, and added a few bells and whistles to compare the accuracy simulation using the small angle approximation and the one that doesn't.
+	<br>
+	<br>
+	<div style="margin-left:auto; margin-right:auto">
+		<video src="assets/sPend35.mp4" style="margin-left:auto; margin-right: auto; width: 300px" controls loop autoplay></video>
+		<video src="assets/sPend15.mp4" style="margin-left:auto; margin-right: auto; width: 300px" controls loop autoplay></video>
+	</div>
+	</p>
+	The red pendulum represents the less accurate model using the approximation and the blue is the the more accurate model. I added a plot on the top that shows you a comparasion of the theta versus time for each of the two simulations, as well showing the phase difference (how delayed the inaccurate model is at every moment in time).
+	</p>
 </div>
 
 <div class="upper-footer">
