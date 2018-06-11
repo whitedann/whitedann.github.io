@@ -147,7 +147,58 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	<p>
 	We can animate a system of two coupled pendulums in a similar way. We'll start with the equations of motion, 
 	</p>
-	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{cases}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{cases} \ \ \dot{\vec{z}}=\begin{cases}\dot{\theta}\\\frac{sin(\theta)(m_{1}(l_{1}\dot{\theta}^{2}-g)-kl_{1})kl_{2}sin(\phi)}{m_{1}l_{1}cos(\theta)}\\\dot{\phi}\\\frac{sin(\phi)(m_{2}(l_{2}\dot{\phi}^{2}-g)-kl_{2})kl_{1}sin(\theta)}{m_{2}l_{2}cos(\phi)}\\\end{cases}" border="0"/>
+	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{pmatrix}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{pmatrix} \ \ \dot{\vec{z}}=\begin{pmatrix}\dot{\theta} \\ \ddot{\theta}\\ \dot{\phi} \\ \ddot{\phi}\\ \end{pmatrix}">
+	<br>
+	<p>Where theta is the angle of the left pendulum and phi is the angle of the right pendulum. We came up with relations for the coordinates in the <a href="#filler">derivations post</a>:</p><br>
+	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\theta} =\frac{sin(\theta)(m_{1}(l_{1}\dot{\theta}^{2}-g)-kl_{1})kl_{2}sin(\phi)}{m_{1}l_{1}cos(\theta)}">
+	<br>
+	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\phi} =  \frac{sin(\phi)(m_{2}(l_{2}\dot{\phi}^{2}-g)-kl_{2})kl_{1}sin(\theta)}{m_{2}l_{2}cos(\phi)}">
+	<br>
+	<p>Then all we need to do is reformat the pendulum class to contain the new variables representing the second pendulum (L2, M2, spring constant k), and then insert the new equations into the equation function</p>
+	<pre class="code-box2">
+
+class coupledPendulum():
+
+    def __init__(self,
+                 g = 9.8,
+                 L1 = 1.5,
+                 L2 = 1.5,
+                 M1 = 1.0,
+                 M2 = 1.0,
+                 k = 0.5):
+
+        """initial state is (theta, thetaDot, phi, phiDot) in degrees
+        where theta is the initial angle of the left pendulum, thetaDot is the initial speed
+        of the left pendulum, and phi/phiDot is the same for the right pendulum"""
+        self.init_state = [np.radians(25.0), 0, np.radians(0.0), 0]
+        self.params = (L1, L2, M1, M2, g, k)
+        self.time = np.arange(0, 50.0, 0.025)
+
+    def equation(self, y0,t):
+
+        (L1, L2, M1, M2, g, k) = self.params
+        theta, thetaDot, phi, phiDot = y0
+
+        dydx = [thetaDot,
+                (sin(theta) * (M1 * (L1 * thetaDot * thetaDot - g) - k * L1) + k * L2 * sin(phi)) / (M1 * L1 * cos(theta)),
+                phiDot,
+                (sin(phi) * (M2 * (L2 * phiDot * phiDot - g) - k * L2) + k * L1 * sin(theta)) / (M2 * L2 * cos(phi))
+                ]
+
+        return dydx
+
+    def solve_ODE(self):
+        self.state = odeint(self.equation, self.init_state, self.time)
+
+        """convert data into (x,y) coordinates"""
+        x1 = sin(self.state[:, 0])*self.params[0]
+        y1 = -1*cos(self.state[:, 0])*self.params[0]
+        x2 = sin(self.state[:, 2])*self.params[1]
+        y2 = -1*cos(self.state[:, 2])*self.params[1]
+        return x1, y1, x2, y2
+	</pre>
+
+
 </div>
 
 <div class="upper-footer">
