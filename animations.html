@@ -126,6 +126,7 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	<p>
 	I plotted the pendulums for the two cases discussed here, and added a few bells and whistles to compare the accuracy simulation using the small angle approximation and the one that doesn't.
 	</p>
+	<br>
 	<div style="margin:auto; text-align:center">
 		<div style="margin: auto; width: 49%; display:inline-block">
 			<p style="font-size: 15px">Initial Angle = 15 degrees</p>
@@ -142,6 +143,11 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	<p>
 	You can easily see how quickly the red pendulum goes out of phase when the initial angle is 35 degrees.
 	</p>
+	<h2>Two Coupled Pendulums</h2>
+	<p>
+	We can animate a system of two coupled pendulums in a similar way. We'll start with the equations of motion, 
+	</p>
+	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{cases}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{cases} \ \ \dot{\vec{z}}=\begin{cases}\dot{\theta}\\\frac{sin(\theta)(m_{1}(l_{1}\dot{\theta}^{2}-g)-kl_{1})kl_{2}sin(\phi)}{m_{1}l_{1}cos(\theta)}\\\dot{\phi}\\\frac{sin(\phi)(m_{2}(l_{2}\dot{\phi}^{2}-g)-kl_{2})kl_{1}sin(\theta)}{m_{2}l_{2}cos(\phi)}\\\end{cases}" border="0"/>
 </div>
 
 <div class="upper-footer">
