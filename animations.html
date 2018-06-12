@@ -28,7 +28,7 @@
 
 <div class="main-content">
     <h1 class = "content-heading">Physics with Python</h1>
-    <video src="testdubpend.mp4" style="margin-left:auto; margin-right:auto; width: 600px"controls></video>
+    <video src="testdubpend.mp4" style="margin-left:auto; margin-right:auto; width: 98%" muted autoplay></video>
     <p>
     In this post, I will explain how I animated some simple physical systems using the python plotting library matplotlib.
     To start, each system use a class which contains:
@@ -44,7 +44,7 @@
     We want to draw (x,y) as a function time using from the system of equations
     <br>
     <br>
-    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?\begin{pmatrix} z_{1} = \dot{\theta}\\ z_{2} = -\frac{g}{l}sin(\theta) \end{pmatrix}" border="0"/>
+    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?\dot{\vec{z}}=\begin{pmatrix}\dot{\theta}\\-\frac{g}{l}\sin \theta\end{pmatrix}" border="0"/>
     <br>
     We use the built-in function odeint from the SciPy library to solve for the values of theta as a function of time. We need to supply odeint with the function, the initial state and the time axis as paramters. So, we will initialize the pendulum object with init_state at 35 degrees and a time interval of .025 from 0 to 50. This produces 2000 frames which will be rendered at 40fps over 50 seconds.
     </p>
@@ -150,11 +150,11 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{pmatrix}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{pmatrix} \ \ \dot{\vec{z}}=\begin{pmatrix}\dot{\theta} \\ \ddot{\theta}\\ \dot{\phi} \\ \ddot{\phi}\\ \end{pmatrix}">
 	<br>
 	<p>Where theta is the angle of the left pendulum and phi is the angle of the right pendulum. We came up with relations for the coordinates in the <a href="#filler">derivations post</a>:</p><br>
-	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\theta} =\frac{sin(\theta)(m_{1}(l_{1}\dot{\theta}^{2}-g)-kl_{1})kl_{2}sin(\phi)}{m_{1}l_{1}cos(\theta)}">
+	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\theta} =\frac{\sin(\theta)(m_{1}(l_{1}\dot{\theta}^{2}-g)-kl_{1})kl_{2}\sin(\phi)}{m_{1}l_{1}\cos(\theta)}">
 	<br>
-	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\phi} =  \frac{sin(\phi)(m_{2}(l_{2}\dot{\phi}^{2}-g)-kl_{2})kl_{1}sin(\theta)}{m_{2}l_{2}cos(\phi)}">
+	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\phi} =  \frac{\sin(\phi)(m_{2}(l_{2}\dot{\phi}^{2}-g)-kl_{2})kl_{1}\sin(\theta)}{m_{2}l_{2}\cos(\phi)}">
 	<br>
-	<p>Then all we need to do is reformat the pendulum class to contain the new variables representing the second pendulum (L2, M2, spring constant k), and then insert the new equations into the equation function</p>
+	<p>Then all we need to do is reformat the pendulum class to contain the new variables representing the second pendulum (L2, M2, spring constant k), and then insert the new equations into the equation function. The complete class ends up being:</p>
 	<pre class="code-box2">
 
 class coupledPendulum():
@@ -197,8 +197,50 @@ class coupledPendulum():
         y2 = -1*cos(self.state[:, 2])*self.params[1]
         return x1, y1, x2, y2
 	</pre>
+	<p>
+	Likewise, we will need to rebuild the animation function. I added a third line to represent the spring that couples the two pendulums, and I added a text field for the tension in the string
+	</p>
+	<p>
+	The tops of each pendulum are set at (-1, 0) and (1, 0) respectively, so we need to adjust the data as such in the animate function. The spring line is drawn between the two end points of the both pendulums.
+	</p>
+	<p>
+	I calculated the tension in the string by calculating how much the spring was expanded or contracted from the equilibrium length, and multiplied it by the spring constant (Hooke's Law).
+	</p>
+	<br>
+	<pre class="code-box2">
+def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 
+    """draw left pendulum, right pendulum, and the spring connecting them"""
+    line.set_data([-1, data2[0, num] - 1], [0, data2[1, num]])
+    line2.set_data([1, data2[2, num] + 1], [0, data2[3, num]])
+    line3.set_data([data2[0, num] -1, data2[2, num] + 1], [data2[1, num], data2[3, num]])
+   
+   """xdata is the time used for the displacment plots, and ydata(1,2) is the angular displacements for these plots"""
+    xdata.append(num/40.0)
+    ydata1.append(np.degrees(np.arctan(data2[0,num]/data2[1,num])))
+    ydata2.append(np.degrees(np.arctan(data2[2,num]/data2[3,num])))
 
+    """plot the displacement plots"""
+    line4.set_data(xdata, ydata1)
+    line5.set_data(xdata, ydata2)
+   
+   """update spring tension text, time text"""
+    theta_text.set_text('Spring Tension: ' + str(abs(round(coupPend.getSpringConstant()*(data2[2,num]-data2[0,num]),1))) + 'N')
+    time_text.set_text('t= ' + str(round(num*0.025,1)) + 's')
+    return line, line2, line3, line4, line5
+	</pre>
+	<br>
+	<p>
+	The animation object is essentially the same as the one used in the single pendulum simulation. If you want to see all of the code that I used in this post you can find it <a href="#code">here</a>
+	<br>It's interesting to see how the energy transfers from pendulum to pendulum. One other thing I'd like to note is that the tension is calculated by ignoring any displacment in the y direction, i.e. this is not a 100% accurate model in that the forces exerted on the masses by the spring are only have an x-component.. 
+	</p>
+	<br>
+	<video src="assets/cPend25.mp4" style="width: 100%; margin-right: auto; margin-left:auto" muted loop autoplay="true"></video>		
+	<br>	
+	<br>
+	<h2>Double Pendulum</h2>
+	<p>The double pendulum
+	</p>
 </div>
 
 <div class="upper-footer">
