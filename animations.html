@@ -27,8 +27,10 @@
 </div>
 
 <div class="main-content">
-    <h1 class = "content-heading">Physics with Python</h1>
+    <h1 class = "content-heading">Pendulum Simulations with Python</h1>
+    <div style="margin-right:auto;margin-left:auto;width:80%">
     <video src="testdubpend.mp4" style="margin-left:auto; margin-right:auto; width: 98%" muted autoplay></video>
+    </div>
     <p>
     In this post, I will explain how I animated some simple physical systems using the python plotting library matplotlib.
     To start, each system use a class which contains:
@@ -44,7 +46,7 @@
     We want to draw (x,y) as a function time using from the system of equations
     <br>
     <br>
-    <img class="equation-center" src="http://latex.codecogs.com/svg.latex?\dot{\vec{z}}=\begin{pmatrix}\dot{\theta}\\-\frac{g}{l}\sin \theta\end{pmatrix}" border="0"/>
+ 	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\dot{\vec{z}}=\begin{pmatrix}\dot{\theta}\\-\frac{g}{l}\sin \theta\end{pmatrix}" border="0"/>
     <br>
     We use the built-in function odeint from the SciPy library to solve for the values of theta as a function of time. We need to supply odeint with the function, the initial state and the time axis as paramters. So, we will initialize the pendulum object with init_state at 35 degrees and a time interval of .025 from 0 to 50. This produces 2000 frames which will be rendered at 40fps over 50 seconds.
     </p>
@@ -239,8 +241,26 @@ def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 	<br>	
 	<br>
 	<h2>Double Pendulum</h2>
-	<p>The double pendulum
+	<p>
+	Lastly, we have the double pendulum. Like with the coupled pendulum system, we have two generalized coordinates. One for the angular position of the upper leg of the pendulum, and one for the angular position of the lower leg of the pendulum. Theta will be used for the upper leg, and phi will be used for the lower leg. We will start by defining a first order system of equations from the basis vector z consisting of the states of the system, and from that create a system of first order equations that we can plug into the odeint function: 
 	</p>
+	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{pmatrix}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{pmatrix} \ \ \dot{\vec{z}}=\begin{pmatrix}\dot{\theta} \\ \ddot{\theta}\\ \dot{\phi} \\ \ddot{\phi}\\ \end{pmatrix}">
+	<p>
+	<br>
+	Again, we uncovered the equations for this first order system in <a href="#post">this post.</a>
+	<p>
+	The interesting thing about the double pendulum is that it, like other chaotic systems, i shighly sensitive to it's initial conditions. Below are two simulations of the double pendulum using the exact same physics and started at the exact same time. They the only difference between the two is a that the left simulation is released one degree higher than the right, and you can see what a difference it makes!
+	</p>
+	<div style="margin:auto; text-align:center">
+		<div style="margin: auto; width: 49%; display:inline-block">
+			<p style="font-size: 15px">Initial Angle = 15 degrees</p>
+			<video src="assets/dPend89.mp4" style="width: 100%; margin-right: auto; margin-left:auto" muted loop autoplay="true"></video>		
+		</div>
+		<div style="margin: auto; width: 49%; display:inline-block">
+			<p style="font-size: 15px">Initial Angle = 35 degrees</p>
+			<video src="assets/testdubpend.mp4" style="width: 100%; margin-right: auto; margin-left:auto" loop muted autoplay="true"></video>
+		</div>
+	</div>
 </div>
 
 <div class="upper-footer">
