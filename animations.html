@@ -28,9 +28,10 @@
 
 <div class="main-content">
     <h1 class = "content-heading">Pendulum Simulations with Python</h1>
-    <div style="margin-right:auto;margin-left:auto;width:80%">
-    <video src="testdubpend.mp4" style="margin-left:auto; margin-right:auto; width: 98%" muted autoplay></video>
+    <div style="margin-right:auto;margin-left:auto;width:80%; text-align:center">
+    <video src="testdubpend.mp4" style="margin-left:auto; margin-right:auto; width: 50%" muted autoplay></video>
     </div>
+    <br>
     <p>
     In this post, I will explain how I animated some simple physical systems using the python plotting library matplotlib.
     To start, each system use a class which contains:
@@ -251,14 +252,15 @@ def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 	<p>
 	The interesting thing about the double pendulum is that it, like other chaotic systems, i shighly sensitive to it's initial conditions. Below are two simulations of the double pendulum using the exact same physics and started at the exact same time. They the only difference between the two is a that the left simulation is released one degree higher than the right, and you can see what a difference it makes!
 	</p>
+	<br>
 	<div style="margin:auto; text-align:center">
 		<div style="margin: auto; width: 49%; display:inline-block">
-			<p style="font-size: 15px">Initial Angle = 15 degrees</p>
+			<p style="font-size: 10px">Initial State: (Theta = 120, ThetaDot = 0, Phi = 89, PhiDot = 0)</p>
 			<video src="assets/dPend89.mp4" style="width: 100%; margin-right: auto; margin-left:auto" muted loop autoplay="true"></video>		
 		</div>
 		<div style="margin: auto; width: 49%; display:inline-block">
-			<p style="font-size: 15px">Initial Angle = 35 degrees</p>
-			<video src="assets/testdubpend.mp4" style="width: 100%; margin-right: auto; margin-left:auto" loop muted autoplay="true"></video>
+			<p style="font-size: 10px">Initial State: (Theta = 120, ThetaDot = 0, Phi = 90, PhiDot = 0)</p>
+			<video src="assets/Dpend90.mp4" style="width: 100%; margin-right: auto; margin-left:auto" loop muted autoplay="true"></video>
 		</div>
 	</div>
 </div>
