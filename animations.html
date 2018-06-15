@@ -33,14 +33,14 @@
     </div>
     <br>
     <p>
-    In this post, I will explain how I animated some simple physical systems using the python plotting library matplotlib.
-    To start, each system use a class which contains:
+    In this post, I will explain how to animate some simple physical systems using the python plotting library matplotlib. All of the code for these simulations is available <a href="#source">here</a>.
+    To start, each system is built into a class which is made up of:
     <ol>
-	    <li>A method which defines and returns the differential equations describing the system's motion.</li>
+	    <li>A method which defines and returns the differential equations describing the system's motion, we represent the system with the variable "Z".</li>
 	    <li>A method which solves the system of equations and returns the coordinates of each mass for each "step" in time.</li>
 	    <li>An initial state for the system, as well as other defined constants needed for each system.</li>
     </ol>
-    I wrote another post showing how to produce the equations of motion for each case here.
+    I wrote another post showing how to produce the equations of motion for each case <a href="#source">here</a>. We will use sciPy's odeint function to numerically solve the system of equations for each system. 
     </p>
     <h2>Single Pendulum</h2>
     <p>
@@ -78,11 +78,11 @@ class Pendulum():
 	Now let's create a callable function for odeint that returns the system we want to intergrate, and initialize it to the initial state that we pass to odeint (this will be init_state).
 	</p>
 	<pre class="code-box2">
-    def equation(self, y0,t):
+    def equation(self, z0,t):
 
-        theta, thetaDot = y0
-        f = [thetaDot, -(self.g/self.L)*sin(theta)]
-        return f
+        theta, thetaDot = z0
+        dzdt = [thetaDot, -(self.g/self.L)*sin(theta)]
+        return dzdt
 	</pre>
 	<p>
 	Then let's create a function which perfroms the odeint call, and then converts the data into (x,y) coordinates so that we can more easily plot it.
@@ -114,10 +114,10 @@ class Pendulum():
 	</pre>
     </p>
 	<p>
-	We start by creating a figure object and putting a subplot within it "ax" which takes up the whole window. Then we initialize a line object to represent the pendulum. The line object is just a set of tuple coordinates with the form line[xdata, ydata].
+	Now we need to create a window, "fig", and create a subplot "ax" within it. Then we initialize a tuple of lists called "line" to represent the pendulum. The first list in the tuple represents the x values of the line and the second list represents the y values of the line. 
 	<br>
 	<br>
-	The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames. Finally, we call the animation function putting in all the pieces:
+	The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames. We need to make the animate function draw the pendulum for each frame in time by setting the line data to the frame indexed by the incrementing variable "num". Finally, we call the animation function putting in all the pieces:
 	</p>
 	<pre class="code-box2">
 def animateSinglePendulum(num, data, line):
@@ -129,7 +129,7 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	init_func=initSinglePendulumWindow, repeat=False)
 	</pre>
 	<p>
-	I plotted the pendulums for the two cases discussed here, and added a few bells and whistles to compare the accuracy simulation using the small angle approximation and the one that doesn't.
+	<a href="#sdasd">Here</a> I talk about the so called "small angle approximation" generally used to solve the equation for a pendulum. Since we are numerically calculating the solution for the pendulum, we can avoid using this approximation. However, I thought it would be fun to plot both the functions side by side to get an idea of how inacurate the approximated version can be if the initial angle is large. 
 	</p>
 	<br>
 	<div style="margin:auto; text-align:center">
@@ -180,18 +180,18 @@ class coupledPendulum():
         self.params = (L1, L2, M1, M2, g, k)
         self.time = np.arange(0, 50.0, 0.025)
 
-    def equation(self, y0,t):
+    def equation(self, z0,t):
 
         (L1, L2, M1, M2, g, k) = self.params
-        theta, thetaDot, phi, phiDot = y0
+        theta, thetaDot, phi, phiDot = z0
 
-        dydx = [thetaDot,
+        dzdt = [thetaDot,
                 (sin(theta) * (M1 * (L1 * thetaDot * thetaDot - g) - k * L1) + k * L2 * sin(phi)) / (M1 * L1 * cos(theta)),
                 phiDot,
                 (sin(phi) * (M2 * (L2 * phiDot * phiDot - g) - k * L2) + k * L1 * sin(theta)) / (M2 * L2 * cos(phi))
                 ]
 
-        return dydx
+        return dzdt 
 
     def solve_ODE(self):
         self.state = odeint(self.equation, self.init_state, self.time)
@@ -204,7 +204,7 @@ class coupledPendulum():
         return x1, y1, x2, y2
 	</pre>
 	<p>
-	Likewise, we will need to rebuild the animation function. I added a third line to represent the spring that couples the two pendulums, and I added a text field for the tension in the string
+	Likewise, we will need to rebuild the animation function. I added a third line to represent the spring that couples the two pendulums, and I added a text field that shows the tension in the string.
 	</p>
 	<p>
 	The tops of each pendulum are set at (-1, 0) and (1, 0) respectively, so we need to adjust the data as such in the animate function. The spring line is drawn between the two end points of the both pendulums.
@@ -237,8 +237,8 @@ def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 	</pre>
 	<br>
 	<p>
-	The animation object is essentially the same as the one used in the single pendulum simulation. If you want to see all of the code that I used in this post you can find it <a href="#code">here</a>
-	<br>It's interesting to see how the energy transfers from pendulum to pendulum. One other thing I'd like to note is that the tension is calculated by ignoring any displacment in the y direction, i.e. this is not a 100% accurate model in that the forces exerted on the masses by the spring only have an x-component. 
+	The animation object is essentially the same as the one used in the single pendulum simulation. If you want to see all of the code that I used in this post you can find it <a href="#code">here</a>.
+	<br><br>It's interesting to see how the energy transfers from pendulum to pendulum. One other thing I'd like to note is that the tension is calculated by ignoring any displacment in the y direction, i.e. this is not a 100% accurate model in that the forces exerted on the masses by the spring only have an x-component. 
 	</p>
 	<br>
 	<div style="text-align:center">
@@ -253,22 +253,23 @@ def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{pmatrix}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{pmatrix} \ \ \dot{\vec{z}}=\begin{pmatrix}\dot{\theta} \\ \ddot{\theta}\\ \dot{\phi} \\ \ddot{\phi}\\ \end{pmatrix}">
 	<br>	
 	<p>
+	Again, we uncovered the equations for this first order system in <a href="#post">this post.</a> Just plug those into the equation function and change the origin of the second pendulum to the end of the first pendulum and we're all done.
 	<br>
-	Again, we uncovered the equations for this first order system in <a href="#post">this post.</a>
-	<p>
-	The interesting thing about the double pendulum is that it, like other chaotic systems, i shighly sensitive to it's initial conditions. Below are two simulations of the double pendulum using the exact same physics and started at the exact same time. They the only difference between the two is a that the left simulation is released one degree higher than the right, and you can see what a difference it makes!
-	</p>
 	<br>
 	<div style="margin:auto; text-align:center">
 		<div style="margin: auto; width: 49%; display:inline-block">
-			<p style="font-size: 10px">Initial State: (Theta = 120, ThetaDot = 0, Phi = 89, PhiDot = 0)</p>
+			<p style="font-size: 13px">Initial State: (Theta = 120, ThetaDot = 0, Phi = 89, PhiDot = 0)</p>
 			<video src="assets/dPend89.mp4" style="width: 100%; margin-right: auto; margin-left:auto" muted loop autoplay="true"></video>		
 		</div>
 		<div style="margin: auto; width: 49%; display:inline-block">
-			<p style="font-size: 10px">Initial State: (Theta = 120, ThetaDot = 0, Phi = 90, PhiDot = 0)</p>
+			<p style="font-size: 13px">Initial State: (Theta = 120, ThetaDot = 0, Phi = 90, PhiDot = 0)</p>
 			<video src="assets/dpend90.mp4" style="width: 100%; margin-right: auto; margin-left:auto" loop muted autoplay="true"></video>
 		</div>
 	</div>
+	<br>
+	<p>
+        The interesting thing about the double pendulum is that, like other chaotic systems is very sensitive to it's initial conditions. The two simulations above use the exact same equations, but their initial conditions are different by one degree, and you can see what a difference it makes!
+        </p>
 </div>
 
 <div class="upper-footer">
