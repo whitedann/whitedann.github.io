@@ -34,14 +34,14 @@
     </div>
     <br>
     <p>
-    In this post, I will explain how to animate some simple physical systems using the python plotting library matplotlib. All of the code for these simulations is available <a href="#source">here</a>.
+    In this post, I will explain how to animate some simple physical systems using the python plotting library matplotlib. All of the code for these simulations is available <a href="pendulum.html">here</a>.
     To start, each system is built into a class which is made up of:
     <ol>
 	    <li>A method which defines and returns the differential equations describing the system's motion, we represent the system with the variable "Z".</li>
 	    <li>A method which solves the system of equations and returns the coordinates of each mass for each "step" in time.</li>
 	    <li>An initial state for the system, as well as other defined constants needed for each system.</li>
     </ol>
-    I wrote another post showing how to produce the equations of motion for each case <a href="#source">here</a>. We will use sciPy's odeint function to numerically solve the system of equations for each system. 
+    I wrote another post showing how to produce the equations of motion for each case <a href="pendulum.html">here</a>. We will use sciPy's odeint function to numerically solve the system of equations for each system. 
     </p>
     <h2>Single Pendulum</h2>
     <p>
