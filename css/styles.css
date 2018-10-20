@@ -155,13 +155,17 @@ body {
 .post-content {
   text-align: left;
   padding: 10px;
+  border: 1px solid black;
 }
 
 .table-image {
-  width: 150px;
-  height: 200px;
-  padding: 5px;
+	float: right;
+	margin: 15px;
+	height: 200px;
+	width: 200px;
+	border: 1px solid black;
 }
+
 
 .table-header {
   font-weight: bold;
