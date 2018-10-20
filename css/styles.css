@@ -86,7 +86,6 @@
 .content {
     background-color: rgb(218,218,210);
     border: 1px solid black;
-    margin-bottom: 40px;
 }
 
 .content-background{
@@ -104,7 +103,7 @@
     display:block;
     float:right;
     margin: 10px;
-    width:25%;
+    width:20%;
 }
 
 .content-image-whole{
@@ -184,6 +183,7 @@
 
 .footer-container {
 	position: relative;
+  margin-top: 150px;
 }
 
 .lower-footer {

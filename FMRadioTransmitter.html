@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
   </head>
 
-  <body class="content-background"> 
+<body class="content-background"> 
 <a name="home"></a>
 <!--top bar -->
 <div id="top-bar">
@@ -71,7 +71,7 @@
   <br>
   <br>
   <br>
-  <img style="width:25%; margin: auto; display:block" src="assets/eqn1.png">
+  <img style="width:10%; margin: auto; display:block" src="assets/eqn1.png">
   <br>
   <br>
   Where we L and C are the values of the inductor and capacitor and f is our carrier frequency. So if you used L1 = 30nH and C1 = 82pF your carrier frequency would be about 100Mhz. If you wanted, you could also replace C1 with a variable capacitor, so you could vary the carrier frequency on the spot. I would be careful into deviating too far from the above values, even if the C to L ratio is right the frequency you want. My thought is that if C is too big(or small) then the modulation may be affected by the relative ratio of C1 to the .2nF capacitor below it, as discussed below.
@@ -83,7 +83,7 @@
       <p style="text-align:center;font-size:13px">Red box: Creates carrier frequency<br>Green box: Modulates the carrier frequency</p>
     </div>
     <div style="width:35%;margin-left: 8%;margin-right:8%;display:inline-block">
-        <img style="border:2px solid black;width:100%" src="assets/FMpic.jpg">
+        <img style="border:2px solid black; width:100%" src="assets/FMpic.jpg">
       <p style="text-align:center;font-size:13px">In this picture, the input is a standard sine wave<br>The peaks and troughs of the input correspond to compressions/contractions of the output wave!</p>
     </div>
   </div>
@@ -100,7 +100,7 @@
   <br>
   <br>
   <h5>Assembling</h5>
-  <img class="content-image-small" src="assets/finalRadio.JPG">
+  <img style="height: 350px; width: 350px" class="content-image-small" src="assets/finalRadio.JPG">
   As mentioned above, building this transmitter is very simple. I managed to fit the entire thing on a small prototype board. The design I was following used a 33pF capacitor for C1 and a coiled wire with 4 turns for L1 (just take a wire and coil it around a screwdriver four times). This produced a carrier of 90.7 MHz. On the right you can see a picture of the final result. It doesn't look so pretty but it worked OK. I was able to hear myself on my dad's old radio reciever, as well as my car's FM radio.
   <br>
   <br>
@@ -109,17 +109,23 @@
   <br>
   I tested the approximate range by driving around in my car while I sat the microphone down next to a TV at home. I was able to hear the output at a range of approximately 100ish feet. So, it wasn't super powerful, but that's okay. The FCC actually limits unlicensed broadcasting to 200 feet in the US according to <a href="https://www.fcc.gov/media/radio/low-power-radio-general-information">this page</a>, so it would be illegal for it to be much more powerful. By the way, the little green coil in the picture is L1.
 	</p>
+  <br>
+  <br>
+  <br>
+  <br>
 </div>
 
-<div class="upper-footer">
-  <div>
-  <p style="font-family: 'Oswald', sans-serif; margin: 0">AROUND THE WEB</p>
-  <a href="https://github.com/whitedann"><img class="botbutton" src="assets/github.svg"></a>
-  <a href="https://www.linkedin.com/in/daniel-white-76434a66/"><img class="botbutton" src="assets/linkedin_circle.png"></a>
+<div class="footer-container">
+  <div class="upper-footer">
+    <div>
+    <p style="font-family: 'Oswald', sans-serif; margin: 0">AROUND THE WEB</p>
+    <a href="https://github.com/whitedann"><img class="botbutton" src="assets/github.svg"></a>
+    <a href="https://www.linkedin.com/in/daniel-white-76434a66/"><img class="botbutton" src="assets/linkedin_circle.png"></a>
+    </div>
   </div>
-</div>
-<div class="lower-footer">
-  daniel white
+  <div class="lower-footer">
+    daniel white
+  </div>
 </div>
 
 </body>
