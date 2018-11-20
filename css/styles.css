@@ -27,11 +27,23 @@
 	margin-bottom: 5px;
 	font-size: 15px;
 	background-color: rgb(230, 230, 224);
+	text-decoration: none;
+	padding: 3px;
 }
 
 .archive-listing:hover {
 	background-color: black;
 	color: white;
+	text-decoration: none;
+	background-image: linear-gradient(black, grey);
+}
+
+.listing-button:hover {
+	text-decoration: none;
+}
+
+.listing-button {
+	color:black ;
 }
 
 .listing-title {
