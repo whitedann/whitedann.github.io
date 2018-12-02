@@ -33,9 +33,9 @@
 
 .archive-listing:hover {
 	background-color: black;
-	color: white;
+	color: black;
 	text-decoration: none;
-	background-image: linear-gradient(black, grey);
+	background-image: linear-gradient(white, rgb(230, 230, 224));
 }
 
 .listing-button:hover {
