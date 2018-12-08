@@ -58,14 +58,15 @@
     We can also use this time to define the length of the Pendulum L, and the acceleration due to gravity, g.
     </p>
     <pre class="code-box2">
+
     import numpy as np
     from matplotlib import pyplot as plt
     from scipy.integrate import odeint
     import matplotlib.animation as animation
 
-class Pendulum():
+    class Pendulum():
 
-    def __init__(self,
+    	def __init__(self,
                  g = 9.8,
                  L = 2.0):
 
@@ -74,21 +75,25 @@ class Pendulum():
         self.time = np.arange(0, 50.0, 0.025) 
         self.g = g
         self.L = L
+
 	</pre>
 	<p>
 	Now let's create a callable function for odeint that returns the system we want to intergrate, and initialize it to the initial state that we pass to odeint (this will be init_state).
 	</p>
 	<pre class="code-box2">
+
     def equation(self, z0,t):
 
         theta, thetaDot = z0
         dzdt = [thetaDot, -(self.g/self.L)*sin(theta)]
         return dzdt
+
 	</pre>
 	<p>
 	Then let's create a function which perfroms the odeint call, and then converts the data into (x,y) coordinates so that we can more easily plot it.
 
 	<pre class="code-box2">
+
     def solve_ODE(self):
        
         self.state = odeint(self.equation, self.init_state, self.time)
@@ -101,17 +106,14 @@ class Pendulum():
 	By calling the solve_ODE method on a pendulum object, we can create the data we need to animate the pendulum and save it as an array.
 	</p>
 	<pre class="code-box2">
+
 	pend = Pendulum()
 	singlePendulumData = np.array(pend.solve_ODE())
-	</pre>
-	<p>
 
-	<p>
-	<pre class="code-box2">
+    	fig = plt.figure()
+    	ax = fig.add_subplot(111)
+    	line, = ax.plot([],[])
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    line, = ax.plot([],[])
 	</pre>
     </p>
 	<p>
@@ -121,16 +123,18 @@ class Pendulum():
 	The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames. We need to make the animate function draw the pendulum for each frame in time by setting the line data to the frame indexed by the incrementing variable "num". Finally, we call the animation function putting in all the pieces:
 	</p>
 	<pre class="code-box2">
-def animateSinglePendulum(num, data, line):
-    line.set_data([0,data[0,num]], [0,data[1,num]])
-    return line
 
-ani = animation.FuncAnimation(fig, animateSinglePendulum, 
-	interval=1, frames=2000, fargs=(singlePendulumData, line),
-	init_func=initSinglePendulumWindow, repeat=False)
+	def animateSinglePendulum(num, data, line):
+    		line.set_data([0,data[0,num]], [0,data[1,num]])
+    		return line
+
+	ani = animation.FuncAnimation(fig, animateSinglePendulum, 
+		interval=1, frames=2000, fargs=(singlePendulumData, line),
+		init_func=initSinglePendulumWindow, repeat=False)
+
 	</pre>
 	<p>
-	<a href="#sdasd">Here</a> I talk about the so called "small angle approximation" generally used to solve the equation for a pendulum. Since we are numerically calculating the solution for the pendulum, we can avoid using this approximation. However, I thought it would be fun to plot both the functions side by side to get an idea of how inacurate the approximated version can be if the initial angle is large. 
+	<a href="pendulum.html">Here</a> I talk about the so called "small angle approximation" generally used to solve the equation for a pendulum. Since we are numerically calculating the solution for the pendulum, we can avoid using this approximation. However, I thought it would be fun to plot both the functions side by side to get an idea of how inacurate the approximated version can be if the initial angle is large. 
 	</p>
 	<br>
 	<div style="margin:auto; text-align:center">
@@ -156,7 +160,7 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	<br>
 	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{pmatrix}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{pmatrix} \ \ \dot{\vec{z}}=\begin{pmatrix}\dot{\theta} \\ \ddot{\theta}\\ \dot{\phi} \\ \ddot{\phi}\\ \end{pmatrix}">
 	<br>
-	<p>Where theta is the angle of the left pendulum and phi is the angle of the right pendulum. We came up with relations for the coordinates in the <a href="#filler">derivations post</a>:</p><br>
+	<p>Where theta is the angle of the left pendulum and phi is the angle of the right pendulum. We came up with relations for the coordinates in the <a href="pendulum.html">formualtions post</a>:</p><br>
 	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\theta} =\frac{\sin(\theta)(m_{1}(l_{1}\dot{\theta}^{2}-g)-kl_{1})kl_{2}\sin(\phi)}{m_{1}l_{1}\cos(\theta)}">
 	<br>
 	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\ddot{\phi} =  \frac{\sin(\phi)(m_{2}(l_{2}\dot{\phi}^{2}-g)-kl_{2})kl_{1}\sin(\theta)}{m_{2}l_{2}\cos(\phi)}">
@@ -164,45 +168,45 @@ ani = animation.FuncAnimation(fig, animateSinglePendulum,
 	<p>Then all we need to do is reformat the pendulum class to contain the new variables representing the second pendulum (L2, M2, spring constant k), and then insert the new equations into the equation function. The complete class ends up being:</p>
 	<pre class="code-box2">
 
-class coupledPendulum():
+	class coupledPendulum():
 
-    def __init__(self,
-                 g = 9.8,
-                 L1 = 1.5,
-                 L2 = 1.5,
-                 M1 = 1.0,
-                 M2 = 1.0,
-                 k = 0.5):
+	    def __init__(self,
+			 g = 9.8,
+			 L1 = 1.5,
+			 L2 = 1.5,
+			 M1 = 1.0,
+			 M2 = 1.0,
+			 k = 0.5):
 
-        """initial state is (theta, thetaDot, phi, phiDot) in degrees
-        where theta is the initial angle of the left pendulum, thetaDot is the initial speed
-        of the left pendulum, and phi/phiDot is the same for the right pendulum"""
-        self.init_state = [np.radians(25.0), 0, np.radians(0.0), 0]
-        self.params = (L1, L2, M1, M2, g, k)
-        self.time = np.arange(0, 50.0, 0.025)
+		"""initial state is (theta, thetaDot, phi, phiDot) in degrees
+		where theta is the initial angle of the left pendulum, thetaDot is the initial speed
+		of the left pendulum, and phi/phiDot is the same for the right pendulum"""
+		self.init_state = [np.radians(25.0), 0, np.radians(0.0), 0]
+		self.params = (L1, L2, M1, M2, g, k)
+		self.time = np.arange(0, 50.0, 0.025)
 
-    def equation(self, z0,t):
+	    def equation(self, z0,t):
 
-        (L1, L2, M1, M2, g, k) = self.params
-        theta, thetaDot, phi, phiDot = z0
+		(L1, L2, M1, M2, g, k) = self.params
+		theta, thetaDot, phi, phiDot = z0
 
-        dzdt = [thetaDot,
-                (sin(theta) * (M1 * (L1 * thetaDot * thetaDot - g) - k * L1) + k * L2 * sin(phi)) / (M1 * L1 * cos(theta)),
-                phiDot,
-                (sin(phi) * (M2 * (L2 * phiDot * phiDot - g) - k * L2) + k * L1 * sin(theta)) / (M2 * L2 * cos(phi))
-                ]
+		dzdt = [thetaDot,
+			(sin(theta) * (M1 * (L1 * thetaDot * thetaDot - g) - k * L1) + k * L2 * sin(phi)) / (M1 * L1 * cos(theta)),
+			phiDot,
+			(sin(phi) * (M2 * (L2 * phiDot * phiDot - g) - k * L2) + k * L1 * sin(theta)) / (M2 * L2 * cos(phi))
+			]
 
-        return dzdt 
+		return dzdt 
 
-    def solve_ODE(self):
-        self.state = odeint(self.equation, self.init_state, self.time)
+	    def solve_ODE(self):
+		self.state = odeint(self.equation, self.init_state, self.time)
 
-        """convert data into (x,y) coordinates"""
-        x1 = sin(self.state[:, 0])*self.params[0]
-        y1 = -1*cos(self.state[:, 0])*self.params[0]
-        x2 = sin(self.state[:, 2])*self.params[1]
-        y2 = -1*cos(self.state[:, 2])*self.params[1]
-        return x1, y1, x2, y2
+		"""convert data into (x,y) coordinates"""
+		x1 = sin(self.state[:, 0])*self.params[0]
+		y1 = -1*cos(self.state[:, 0])*self.params[0]
+		x2 = sin(self.state[:, 2])*self.params[1]
+		y2 = -1*cos(self.state[:, 2])*self.params[1]
+		return x1, y1, x2, y2
 	</pre>
 	<p>
 	Likewise, we will need to rebuild the animation function. I added a third line to represent the spring that couples the two pendulums, and I added a text field that shows the tension in the string.
@@ -215,26 +219,27 @@ class coupledPendulum():
 	</p>
 	<br>
 	<pre class="code-box2">
-def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 
-    """draw left pendulum, right pendulum, and the spring connecting them"""
-    line.set_data([-1, data2[0, num] - 1], [0, data2[1, num]])
-    line2.set_data([1, data2[2, num] + 1], [0, data2[3, num]])
-    line3.set_data([data2[0, num] -1, data2[2, num] + 1], [data2[1, num], data2[3, num]])
-   
-   """xdata is the time used for the displacment plots, and ydata(1,2) is the angular displacements for these plots"""
-    xdata.append(num/40.0)
-    ydata1.append(np.degrees(np.arctan(data2[0,num]/data2[1,num])))
-    ydata2.append(np.degrees(np.arctan(data2[2,num]/data2[3,num])))
+	def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 
-    """plot the displacement plots"""
-    line4.set_data(xdata, ydata1)
-    line5.set_data(xdata, ydata2)
-   
-   """update spring tension text, time text"""
-    theta_text.set_text('Spring Tension: ' + str(abs(round(coupPend.getSpringConstant()*(data2[2,num]-data2[0,num]),1))) + 'N')
-    time_text.set_text('t= ' + str(round(num*0.025,1)) + 's')
-    return line, line2, line3, line4, line5
+	    """draw left pendulum, right pendulum, and the spring connecting them"""
+	    line.set_data([-1, data2[0, num] - 1], [0, data2[1, num]])
+	    line2.set_data([1, data2[2, num] + 1], [0, data2[3, num]])
+	    line3.set_data([data2[0, num] -1, data2[2, num] + 1], [data2[1, num], data2[3, num]])
+	   
+	   """xdata is the time used for the displacment plots, and ydata(1,2) is the angular displacements for these plots"""
+	    xdata.append(num/40.0)
+	    ydata1.append(np.degrees(np.arctan(data2[0,num]/data2[1,num])))
+	    ydata2.append(np.degrees(np.arctan(data2[2,num]/data2[3,num])))
+
+	    """plot the displacement plots"""
+	    line4.set_data(xdata, ydata1)
+	    line5.set_data(xdata, ydata2)
+	   
+	   """update spring tension text, time text"""
+	    theta_text.set_text('Spring Tension: ' + str(abs(round(coupPend.getSpringConstant()*(data2[2,num]-data2[0,num]),1))) + 'N')
+	    time_text.set_text('t= ' + str(round(num*0.025,1)) + 's')
+	    return line, line2, line3, line4, line5
 	</pre>
 	<br>
 	<p>
@@ -254,7 +259,7 @@ def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 	<img class="equation-center" src="http://latex.codecogs.com/svg.latex?\vec{z}=\begin{pmatrix}\theta\\\dot{\theta}\\\phi\\\dot{\phi}\end{pmatrix} \ \ \dot{\vec{z}}=\begin{pmatrix}\dot{\theta} \\ \ddot{\theta}\\ \dot{\phi} \\ \ddot{\phi}\\ \end{pmatrix}">
 	<br>	
 	<p>
-	Again, we uncovered the equations for this first order system in <a href="#post">this post.</a> Just plug those into the equation function and change the origin of the second pendulum to the end of the first pendulum and we're all done.
+	Again, we uncovered the equations for this first order system in <a href="pendulum.html">this post.</a> Below is a pair of simulations where the initial angle differs by a single degree. From these animations side by side, it is easy to see the nonlinear behavior of this system; even after a few moments, the direction and speed of these two systems is totally different.  
 	<br>
 	<br>
 	<div style="margin:auto; text-align:center">
@@ -267,10 +272,6 @@ def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
 			<video src="assets/dpend90.mp4" style="width: 100%; margin-right: auto; margin-left:auto" loop muted autoplay="true"></video>
 		</div>
 	</div>
-	<br>
-	<p>
-        The interesting thing about the double pendulum is that, like other chaotic systems is very sensitive to it's initial conditions. The two simulations above use the exact same equations, but their initial conditions are different by one degree, and you can see what a difference it makes!
-        </p>
 </div>
 </div>
 
