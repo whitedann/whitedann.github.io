@@ -148,27 +148,23 @@
   font-family: sans-serif;
 }
 
-.post-date{
-  text-align: center;
-  padding: 10px;
-}
-
 .post-title {
   text-align: left;
-  padding: 10px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .post-content {
   text-align: left;
   padding: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
 .table-image {
 	float: right;
 	margin: 15px;
-	height: 200px;
-	width: 200px;
+	height: 300px;
+	width: 300px;
 	border: 1px solid black;
 }
 
@@ -222,11 +218,12 @@
 
 .post-list {
   margin: auto;
-  width:50%;
+  width: 60%;
+  text-align: center;
 }
 
 .post-title a{
-  font-size: 20px;
+  font-size: 30px;
   text-decoration: none;
   font-weight: bold;
   color: black;
