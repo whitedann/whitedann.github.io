@@ -124,7 +124,6 @@
       -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
           box-sizing: border-box;
-	
 }
 
 .equation-center{
@@ -133,41 +132,20 @@
 	margin-left: auto;
 }
 
-#top-bar h1 {
-	margin-bottom:0px;
-  	font-size:20px;
-	margin-color: rgb(218,218,210);
-	background-color: rgb(218,218,210);
-}
-
 #top-bar p {
-  font-size:17px;
+  font-size:170px;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
   font-family: sans-serif;
 }
 
-.post-title {
-  text-align: left;
-  padding-left: 100px;
-  padding-right: 100px;
-}
-
-.post-content {
-  text-align: left;
-  padding: 10px;
-  border: 2px solid black;
-}
-
 .table-image {
 	float: right;
-	margin: 15px;
 	height: 300px;
 	width: 300px;
-	border: 1px solid black;
+	margin-right: 15px;
 }
-
 
 .table-header {
   font-weight: bold;
@@ -177,18 +155,17 @@
   margin-left:auto;
   margin-right:auto;
   border-bottom: 2px solid black;
-
 }
 
 .table,tr {
-  border: 10px solid rgb(218,218,210);
+  border: 1px solid rgb(218,218,210);
   background-color: rgb(230,230,224);
-
+  height: 20%;
 }
 
 .footer-container {
 	position: relative;
-  margin-top: 150px;
+	margin-top: 150px;
 }
 
 .lower-footer {
@@ -217,25 +194,22 @@
 }
 
 .post-list {
-  margin: auto;
   width: 60%;
-  text-align: center;
+  margin: auto;
 }
 
 .post-title a{
-  font-size: 30px;
   text-decoration: none;
   font-weight: bold;
   color: black;
-  text-align: center;
 }
 
-.post-title a:hover{
-  text-decoration: none;
-  color:red;
-  text-align: center;
+.title-div {
+	font-size: 30px;
+	margin-top: 25%;
+	margin-left: 5%;
+	width: 75%;
 }
-
 
 .code-box{
   background-color: #f9f9f9;
