@@ -145,23 +145,27 @@
 	height: 300px;
 	width: 300px;
 	margin-right: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	border: 2px solid black;
 }
 
 .table-header {
   font-weight: bold;
   font-size: 25px;
   color: black;
-  width: 50%;
+  width: 58%;
   margin-left:auto;
   margin-right:auto;
   border-bottom: 2px solid black;
 }
 
 .table,tr {
-  border: 1px solid rgb(218,218,210);
+  border: 15px solid rgb(218,218,210);
   background-color: rgb(230,230,224);
-  height: 20%;
 }
+
 
 .footer-container {
 	position: relative;
@@ -206,7 +210,7 @@
 
 .title-div {
 	font-size: 30px;
-	margin-top: 25%;
+	margin-top: 5%;
 	margin-left: 5%;
 	width: 75%;
 }
