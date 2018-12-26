@@ -18,9 +18,10 @@ $('.postEntry').on('mouseenter', function(){
 	title.stop();
 	title.animate({
 		marginLeft: "5%",
-		marginTop: "-20%",
+		marginTop: "-25%",
 	}, 300, function() {
-		$(this).find('p').css("opacity", "1.0")
+		$(this).find('p').css("opacity", "1.0");
+		$(this).find('h1').css('color', 'black');
 	});
 	$(this).css('background-color', '#a8a8a1');
 });
@@ -37,9 +38,10 @@ $('.postEntry').on('mouseleave', function(){
 			"opacity": "0.0"});	
 	title.animate({
 		marginLeft: "auto",
-		marginTop: "25%",
+		marginTop: "5%",
 	}, 200);
 	$(this).css('background-color', 'rgb(230,230,224)');
+	$(this).find('h1').css('color', 'black');
 });
 
 $('.postEntry').click(function(){
