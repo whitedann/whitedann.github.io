@@ -1,4 +1,4 @@
-$('#LastCircle').append("<video class=\"vidoe\" src=\"assets/LastCircleDemo2.mp4\" style=\"; height: 300px; width: 300px;margin-right: 15px\" loop muted></video>");
+$('#LastCircle').append("<video class=\"vidoe\" src=\"assets/newWebVideo.mp4\" style=\"; height: 300px; width: 300px;margin-right: 15px; border-radius: 10;\" loop muted></video>");
 
 $('#Pendulums').append("<video class=\"vidoe\" src=\"assets/dpend90.mp4\" style=\"height: 300px; width: 300px; margin-right: 15px;\" loop muted></video>");
 
