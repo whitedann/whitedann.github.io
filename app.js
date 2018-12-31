@@ -1,4 +1,4 @@
-$('#LastCircle').append("<video class=\"vidoe\" src=\"assets/LastCircleDemo2.mp4\" style=\"; height: 300px; width: 300px;margin-right: 15px\" loop muted></video>");
+$('#LastCircle').append("<video class=\"vidoe\" src=\"assets/newWebVideo.mp4\" style=\"; height: 300px; width: 300px;margin-right: 15px\" loop muted></video>");
 
 $('#Pendulums').append("<video class=\"vidoe\" src=\"assets/dpend90.mp4\" style=\"height: 300px; width: 300px; margin-right: 15px;\" loop muted></video>");
 
@@ -18,7 +18,7 @@ $('.postEntry').on('mouseenter', function(){
 	title.stop();
 	title.css("position", "relative");
 	title.animate({
-		top: "-100px"
+		top: "-100px",
 	}, 300, function() {
 		$(this).find('p').css("opacity", "1.0");
 		$(this).find('h1').css('color', 'black');
@@ -37,7 +37,7 @@ $('.postEntry').on('mouseleave', function(){
 	$(this).find('p').css({"display": "block",
 			"opacity": "0.0"});	
 	title.animate({
-		top: "0px"	
+		top: "0px"
 	}, 200);
 	$(this).css('background-color', 'rgb(230,230,224)');
 	$(this).find('h1').css('color', 'black');
