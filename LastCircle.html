@@ -29,18 +29,17 @@
 	<h1 class="content-heading">Last Circle</h1>
 	<div style="text-align: center; margin-bottom: 20px">
 		<img src="assets/LastCircleTitle.png" style="width: 500px">
-
 	</div>
-	<p>After the school year ended, I decided to make a game over the summer. It presented quite a few interesting programming challenges which I will make note of in this article. I drew all of the art and animations myself which also gave me a lot of respect for just how time-consuming making a game really is. I spent over a dozen hours drawing just a handful of basic sprites!
+	<p>I spent a couple months trying to make a game this summer. It presented quite a few interesting challenges and in hindsight there are a lot of things I would have done differently. Overall, I am relatively pleased with the way it turned out. 
 	</p>
-	<p>I ended up using the built-in GUI framework Java.AWT for all the graphics-drawing instead of something more complex like OpenGL. This project was not meant to be flashy, so the .awt framework ended up meeting my needs. Below is a short clip of the game in action. The player controls a blue-turqoise octogon by moving and shooting in the cardinal directions(N, S, W, E). Movement in intercardinal directions(NE,NW,SE,SW) is also possible if the player moves holds down the two buttons at once. The goal is to survive as long as possible. Each enemy destroyed is worth 5 points. 
+	<p>I began with the default java.awt API used to open windows and draw shapes to the screen. Eventually I had a working prototype for the game and I decided not to enlist the help of a more robust framework like OpenGL or the like; This project was not meant to be flashy, so the .awt framework ended up meeting my needs. Below is a short clip of the game in action. The player controls a blue-turqoise octogon by moving and shooting in the cardinal directions(N, S, W, E). Movement in intercardinal directions(NE,NW,SE,SW) is also possible if the player moves holds down the two buttons at once. The goal is to survive as long as possible. Each enemy destroyed is worth 5 points. 
 	</p>
 	<div style="text-align: center; margin-bottom: 20px">
 	<video src="assets/LastCircleDemo.mp4" style="width: 500px;" loop muted autoplay="true" poster="assets/loading.gif"></video>
 	</div>
 	<p>The spawn interval begins at 5 seconds and slightly increases as the player's score increases. I wanted to create the feeling that the player was being slowly overwhelmed. I kept track of the enemies in a LinkedList structure and added and removed from it as enemies spawned or were destroyed.
 	</p>
-	<p>This ended up being an inefficient approach due to the fact that the game was checking was for a ton of collisions at each tick. The game attempts to check for collisions between each creature, wall entity, player and bullet projectile at each tick (60 times per second!). Obviously this was not going to work if I wanted to have dozens of enemies on the field at once, or have the player shoot a lot of projectiles.
+	<p>This ended up being an inefficient approach due to the fact that the game was checking was for a ton of collisions at each tick. The game attempts to check for collisions between each creature, wall entity, player and bullet projectile at each tick (60 times per second). Obviously this was not going to work if I wanted to have dozens of enemies on the field at once, or have the player shoot a lot of projectiles.
 	</p>
 	<div style="margin-top: 100px; margin-bottom: 100px">
 	<h2 style="margin-bottom: 20px">Optimizing Collision Detection</h2>
@@ -53,16 +52,14 @@
 	<p>With this method, we eliminate a lot of checks between objects that are too far apart to collide. It also gives us a nice way to track the presence of entities in any particular area on the game field (I used this data to prevent enemies from spawning on top of each other)
 	</p>
 	<p>
-	At a minimum, we are still going to have to iterate through all of the entities in the game i.e. If there are N entities, we are going to have to sort N items. Afterward we perform a collision check on all neighboring entities. Worst case, this still represents O(N^2) complexity. However, if we prevent enemies from moving thorugh each other, the maximum amount of compares is actually quite small. I used a region size of 64x64 pixels. Since the sizes of my entities were 16x16, 32x32 and 64x64 pixels, it was impossible for more than 8 enemies to occupy the same cell. 
+	At a minimum, we are still going to have to iterate through all of the entities in the game i.e. If there are N entities, we are going to have to check N items against N other entities for collisions. This overhead can add up pretty quick and drag down the frame rate. If we prevent enemies from moving thorugh each other, the maximum amount of collision checks for any entity is limited to the number of entities that can fit inside of a cell. I used a region size of 64x64 pixels, and since the sizes of my entities were 16x16, 32x32 and 64x64 pixels, it was impossible for more than 8 enemies to occupy the same cell. Still, this is not really very ideal. It turns out that there are better ways to detect collisions between particles in a 2D space. Check out this video that keeps track of entites inside of a quadtree data structure (rather than a List) to optimize collision detection between particles. 
 	</p>
-	<p>
-	I eventually found out that there other better ways to check for collisions between objects. Check out this video that uses the quad tree data structure to 
 	</div>
 	<div style="margin-top: 100px; margin-bottom: 100px;">
 	<h3 style="margin-bottom: 20px">Calculating Collisions Between Circlular Entities</h3>
 	<img style="float:left; width: 300px; margin-right: 20px" src="assets/eeCollision.png">
 	<p>
-	Most of the entities in this game were some form of circle, which is great because checking for collisions between entities is simple. If two circles A and B have radii R and r respectively then all we have to do is check that their relative separation distance, S, is greater than the sum of their two radii. In other words,  
+	What is the math that we actually use to determine if two entities are colliding? It depends on the shape of the entiies. Most of the entities in this game were some form of circle, which is great because checking for collisions between entities is simple. If two circles A and B have radii R and r respectively then all we have to do is check that their relative separation distance, S, is greater than the sum of their two radii. In other words,  
 	</p>
 	<a class="equation-center" href="http://www.codecogs.com/eqnedit.php?latex=\texttt{if}&space;(R&space;&plus;&space;r&space;>&space;\sqrt{(x_{B}-x_{A})^{2}&plus;(y_{B}-y_{A})^{2}})\rightarrow&space;\textup{Collision&space;between&space;A&space;and&space;B}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\texttt{if}&space;(R&space;&plus;&space;r&space;<&space;\sqrt{(x_{B}-x_{A})^{2}&plus;(y_{B}-y_{A})^{2}})\rightarrow&space;\textup{Collision&space;between&space;A&space;and&space;B}" title="\texttt{if} (R + r < \sqrt{(x_{B}-x_{A})^{2}+(y_{B}-y_{A})^{2}})\rightarrow \textup{Collision between A and B}" style="margin-bottom: 10px; width: 450px"/></a>
 	<a class="equation-center" href="http://www.codecogs.com/eqnedit.php?latex=\texttt{else}\rightarrow&space;\textup{No&space;Collision&space;between&space;A&space;and&space;B}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\texttt{else}\rightarrow&space;\textup{No&space;Collision&space;between&space;A&space;and&space;B}" title="\texttt{else}\rightarrow \textup{No Collision between A and B}" style="margin-bottom: 20px; width: 250px;"/></a>		
