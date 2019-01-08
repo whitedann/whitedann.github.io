@@ -7,23 +7,32 @@ $.fn.exists = function () {
 	return this.length !== 0;
 }
 
+// behavior for front page post entry behavior //
 $('.postEntry').on('mouseenter', function(){
 	$(this).find('p').css("display", "block");
 	let videoThumbnail = $(this).has('.vidoe');
+
+	//If the post contains a video, play the video on mouseover //
 	if(videoThumbnail.exists()){
 		$(this).find('.vidoe').get(0).play();
 		$(this).find('vidoe').css("opacity", "1.0");
 	}
+
 	let title = $(this).find('.post-title div');
+	//If the title is mid-animation, stop the animation //
 	title.stop();
 	title.css("position", "relative");
+
 	title.animate({
 		top: "-100px",
 	}, 300, function() {
 		$(this).find('p').css("opacity", "1.0");
 		$(this).find('h1').css('color', 'black');
 	});
+
+	//Change background color on mouseover
 	$(this).css('background-color', '#a8a8a1');
+
 });
 
 $('.postEntry').on('mouseleave', function(){
@@ -35,7 +44,7 @@ $('.postEntry').on('mouseleave', function(){
 	let title = $(this).find('.post-title div');
 	title.stop();
 	$(this).find('p').css({"display": "block",
-			"opacity": "0.0"});	
+			"opacity": "0.0"});
 	title.animate({
 		top: "0px"
 	}, 200);
@@ -49,4 +58,3 @@ $('.postEntry').click(function(){
 		console.log(window.location.href = $(this).find("a:first").attr("href"));
 	}
 });
-

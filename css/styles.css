@@ -1,3 +1,19 @@
+/* New !!! */
+.inline-list-item {
+	display: inline-block;
+}
+
+.nav-first {
+	margin-top: 1rem;
+}
+
+.nav-second {
+	margin-top: 1rem;
+}
+
+.nav-item > a:hover{
+	color: #c0d6f9 !important;
+}
 /*Styles for arhive.html*/
 
 .center-archive {
@@ -202,7 +218,7 @@
 	font-family: Courier New,monospace;
 	line-height:normal;
 	white-space:normal;
-	padding: 1em;  
+	padding: 1em;
 }
 
 .code-box2 {
