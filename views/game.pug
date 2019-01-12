@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .col-md-9
+    h1 Last Circle
+    hr.bg-white
+    .text-center.py-3
+      img(width='60%' src="assets/LastCircleTitle.png")
+    p I spent a couple months trying to make a game this summer. It presented quite a few interesting challenges and in hindsight there are a lot of things I would have done differently. Overall, I am relatively pleased with the way it turned out. 
+    p I began with the default java.awt API used to open windows and draw shapes to the screen. Eventually I had a working prototype for the game and I decided not to enlist the help of a more robust framework like OpenGL or the like; This project was not meant to be flashy, so the .awt framework ended up meeting my needs. Below is a short clip of the game in action. The player controls a blue-turqoise octogon by moving and shooting in the cardinal directions(N, S, W, E). Movement in intercardinal directions(NE,NW,SE,SW) is also possible if the player moves holds down the two buttons at once. The goal is to survive as long as possible. Each enemy destroyed is worth 5 points. 
+    .text-center.pb-3
+      video(width='60%' autoplay, loop, muted)
+        source(src="assets/LastCircleDemo.mp4", type="video/mp4")
+
+    
+  
+    

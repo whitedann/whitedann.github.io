@@ -17,6 +17,11 @@ app.get('/projects', (req, res) => {
 	res.render('projects');
 });
 
+// Project pages //
+app.get('/game', (req, res) => {
+	res.render('game');
+})
+
 app.get('/music', (req, res) => {
 	res.render('music');
 });
