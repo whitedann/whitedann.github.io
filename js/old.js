@@ -27,13 +27,13 @@ $('.post').on('mouseleave', function(){
 		$(this).find('.click-text').css("opacity", "0.0");
 	});
 	$(this).find('.post-img').stop().animate({
-		opacity: 0.3
+		opacity: 0.75
 	}, 400);
 	let video = $(this).find('.post-video');
 	if(video){
 		video.get(0).pause();
 		video.stop().animate({
-			opacity: 0.3
+			opacity: 0.75
 		}, 400);
 	}
 });
