@@ -23,7 +23,7 @@ app.get('/game', (req, res) => {
 })
 
 app.get('/pendulums', (req, res) => {
-	res.render('pendulums.pug')
+	res.render('pendulums.pug');
 })
 
 app.get('/music', (req, res) => {
