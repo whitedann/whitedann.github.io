@@ -27,8 +27,44 @@ block content
       source(src="assets/collisionDemo.mp4", type="video/mp4")
     p Calculating collisions between circles and rectanlge is a bit more complicated. With circles, the bounds of the shape are constant; wherever you are arond the circle, the distance to the center is always the same (because the radius is a constant). 
     p With a rectangle, the distance from the center to the edge of the rectangle depends on your position relative to the center, so we have to do a little more math. The function below descibes a way of checking for a collision between a rectangular shape(with known height, width, position) and a circular entity(with known radius and position). 
-
-
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |1  public boolean entityIntersectsRect(Rectanlge rect, Entity e){
+        |2    double circleDistanceX = Math.abs(e.getCenterX() - rect.getCenterX()); 
+        |3    double circleDistanceY = Math.abs(e.getCenterY() - rect.getCenterY());
+        |4
+        |5    if(circleDistanceX &gt; (e.getRadius() + rect.getWidth()/2)) {return false;}
+        |6    if(circleDistanceY &gt; (e.getRadius() + rect.getHeight()/2)) {return false;}
+        |7
+        |8    if(circleDistanceX &lt; (e.getRadius() + rect.getWidth()/2)) {return true;}
+        |9    if(circleDistanceY &lt; (e.getRadius() + rect.getHeight()/2)) {return true;}
+        |10
+        |11   cornerSquareDistance = ((circleDistanceX - rect.getWidth()/2)^2 + 
+        |12                  (circleDistanceY - rect.getHeight()/2)^2)
+        |13   return (cornerSquareDistance &lt;= e.getRadius()^2);
+        |
+    p Let's go over how this is function works. We are checking for three seperate cases.
+    img(width='30%' src="assets/collisionDiagram.jpg").float-right.ml-2.img-thumbnail
+    p The first two lines of the function calculate the distance between the center of the circle and center of the rectangle in component x, y form. 
+    p 1. The second two lines check for the "easy case" where a collision is impossible because the relative distance is greater than the radius of the circle and the maximum bounds of the rectangle. In the diagram, the corresponds to the circle being in the green region. 
+    p 2. The next two lines check for the easy case where a collision is guranteeed because the rectangles bounds are greater than the separation distance. This corresponds to the grey and orange sections on the diagram.
+    p 3. The last lines compute the more difficult case where the circle can intersect the corner of the rectangle. It accomplishes this by calculating the distance of the center of the circle to the edge of the rectangle and then comparing this to the radius of the circle. If the radius is larger than this distance, then the function returns false corresponding to circles in the red region, or true for circles who intersect the white region.
+    p Notice in the return statement that we are comparing the squared distances. This is to avoid having the use the comparatively expensive square root operation on either side of the equation. 
+    h3 Animations and Sprites
+    p The game animates entities by looping through an array of buffered images for each tick. By default, objects loop through this array indefinitely until some flag is given. For example, the player death flag switches the player animation to a death animation. For the sake of convenience, animations are composed of images that exist on larger image sheets. At run time, the game loads these sheets and crops them into their individual form. Here are some spritesheets for a some enemies in the game and their corresponding animations.
+    .container.text-center.my-5
+      p Pinwheel Enemy Movement
+      img(src="assets/pinwheel.png").mr-5
+      img(src="assets/pinwheel.gif").ml-5
+    .container.text-center.my-5
+      p Original Player Character Death Animation
+      img(src="assets/turretExplosion.png")
+      img(src="assets/turretExplosion.gif")
+    .container.text-center
+      p Big Enemy Death Animation
+      img(src="assets/bigDeath.png")
+      img(src="assets/bigDeath.gif")
+    hr.bg-white
 
     
   

@@ -75,6 +75,10 @@
 	background-color: #4da3ff
 }
 
+.code-block {
+	background-color: #00ff84;
+}
+
 /** Reference for making resizeable "flex video" **/
 /* https://stackoverflow.com/questions/24472016/bootstrap-auto-resize-video-for-screen-size */
 .flex-vid {
