@@ -10,20 +10,20 @@ app.use('/assets', express.static('assets'));
 app.use('/js', express.static('js'));
 
 app.get('/', (req, res) => {
-	res.render('index');
+	res.render('index.pug');
 });
 
 app.get('/projects', (req, res) => {
-	res.render('projects');
+	res.render('projects.pug');
 });
 
 // Project pages //
 app.get('/game', (req, res) => {
-	res.render('game');
+	res.render('game.pug');
 })
 
 app.get('/pendulums', (req, res) => {
-	res.render('pendulums')
+	res.render('pendulums.pug')
 })
 
 app.get('/music', (req, res) => {
