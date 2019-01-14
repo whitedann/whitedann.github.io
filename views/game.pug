@@ -4,8 +4,12 @@ block content
   .col-md-9
     h1 Last Circle
     hr.bg-white
-    .text-center.py-3
+    .text-center.pt-3
       img(width='60%' src="assets/LastCircleTitle.png")
+    .container.text-center.my-3
+      a(href="https://github.com/whitedann/LastCircle")
+        i.fab.fa-lg.fa-github.contact-logo
+    hr.bg-white
     p I spent a couple months trying to make a game this summer. It presented quite a few interesting challenges and in hindsight there are a lot of things I would have done differently. Overall, I am relatively pleased with the way it turned out. 
     p I began with the default java.awt API used to open windows and draw shapes to the screen. Eventually I had a working prototype for the game and I decided not to enlist the help of a more robust framework like OpenGL or the like; This project was not meant to be flashy, so the .awt framework ended up meeting my needs. Below is a short clip of the game in action. The player controls a blue-turqoise octogon by moving and shooting in the cardinal directions(N, S, W, E). Movement in intercardinal directions(NE,NW,SE,SW) is also possible if the player moves holds down the two buttons at once. The goal is to survive as long as possible. Each enemy destroyed is worth 5 points. 
     .text-center.pb-3
@@ -54,17 +58,17 @@ block content
     p The game animates entities by looping through an array of buffered images for each tick. By default, objects loop through this array indefinitely until some flag is given. For example, the player death flag switches the player animation to a death animation. For the sake of convenience, animations are composed of images that exist on larger image sheets. At run time, the game loads these sheets and crops them into their individual form. Here are some spritesheets for a some enemies in the game and their corresponding animations.
     .container.text-center.my-5
       p Pinwheel Enemy Movement
-      img(src="assets/pinwheel.png").mr-5
-      img(src="assets/pinwheel.gif").ml-5
+      img(src="assets/pinwheel.png").mr-5.img-responsive
+      img(src="assets/pinwheel.gif").ml-5.img-responsive
     .container.text-center.my-5
       p Original Player Character Death Animation
-      img(src="assets/turretExplosion.png")
-      img(src="assets/turretExplosion.gif")
+      img(src="assets/turretExplosion.png").img-responsive
+      img(src="assets/turretExplosion.gif").img-responsive
     .container.text-center
       p Big Enemy Death Animation
-      img(src="assets/bigDeath.png")
-      img(src="assets/bigDeath.gif")
-    hr.bg-white
+      img(src="assets/bigDeath.png").img-responsive
+      img(src="assets/bigDeath.gif").img-responsive
+    hr.bg-white.mb-5
 
     
   
