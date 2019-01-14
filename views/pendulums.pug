@@ -89,10 +89,108 @@ block content
           video(width="100%" autoplay, loop, muted)
             source(src="assets/sPend35.mp4", type="video/mp4")
           p.text-center Initial Angle = 35 Degrees
-    h2 Two Coupled Pendulums
+    h2.mt-5 Two Coupled Pendulums
     p We can animate a system of two coupled pendulums in a similar way. We'll start with the equations of motion:
-    
-          
+    .text-center.my-5
+      img(src="assets/eqns/2.png").eqn
+    p Where theta is the angle of the left pendulum and phi is the angle of the right pendulum. Using lagrangian mechanics we produce the relations: 
+    .text-center.my-5
+      img(src="assets/eqns/3.png").eqnlong
+    .text-center.my-5
+      img(src="assets/eqns/4.png").eqnlong
+    p Again the goal here is to integrate these equations with the odeint method. The "k" variable corresponds to the spring constant of the rod connecting the pendula.
+    p Then all we need to do is reformat the pendulum class to contain the new variables representing the second pendulum (L2, M2, spring constant k), and then insert the new equations into the equation function. The complete class ends up being:
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |class coupledPendulum():
+        |
+        |    def __init__(self,
+        |     g = 9.8,
+        |     L1 = 1.5,
+        |     L2 = 1.5,
+        |     M1 = 1.0,
+        |     M2 = 1.0,
+        |     k = 0.5):
+        |
+        |  """initial state is (theta, thetaDot, phi, phiDot) in degrees """
+        |  """where theta is the initial angle of the left pendulum, thetaDot is the initial speed """
+        |  """of the left pendulum, and phi/phiDot is the same for the right pendulum"""
+        |  self.init_state = [np.radians(25.0), 0, np.radians(0.0), 0]
+        |  self.params = (L1, L2, M1, M2, g, k)
+        |  self.time = np.arange(0, 50.0, 0.025)
+        |
+        |  def equation(self, z0,t):
+        |     (L1, L2, M1, M2, g, k) = self.params
+        |     theta, thetaDot, phi, phiDot = z0
+        |
+        |     dzdt = [
+        |      thetaDot,
+        |     (sin(theta) * (M1 * (L1 * thetaDot * thetaDot - g) - k * L1) + k * L2 * sin(phi)) / (M1 * L1 * cos(theta)),
+        |     phiDot,
+        |     (sin(phi) * (M2 * (L2 * phiDot * phiDot - g) - k * L2) + k * L1 * sin(theta)) / (M2 * L2 * cos(phi))
+        |     ]
+        |
+        |     return dzdt 
+        |
+        |  def solve_ODE(self):
+        |     self.state = odeint(self.equation, self.init_state, self.time)
+        |
+        |     """convert data into (x,y) coordinates"""
+        |     x1 = sin(self.state[:, 0])*self.params[0]
+        |     y1 = -1*cos(self.state[:, 0])*self.params[0]
+        |     x2 = sin(self.state[:, 2])*self.params[1]
+        |     y2 = -1*cos(self.state[:, 2])*self.params[1]
+        |     return x1, y1, x2, y2    
+    p We will need to rebuild the animation function. I added a third line to represent the spring that couples the two pendulums, and I added a text field that shows the tension in the string.
+    p The tops of each pendulum are set at (-1, 0) and (1, 0) respectively, so we need to adjust the data as such in the animate function. The spring line is drawn between the two end points of the both pendulums.
+    p I calculated the tension in the string using Hooke's law and the x-coordinate difference between the two pendula.
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |def animateCoupledPendulum(num,data2,line,line2, line3, line4, line5):
+        |
+        |      """draw left pendulum, right pendulum, and the spring connecting them"""
+        |      line.set_data([-1, data2[0, num] - 1], [0, data2[1, num]])
+        |      line2.set_data([1, data2[2, num] + 1], [0, data2[3, num]])
+        |      line3.set_data([data2[0, num] -1, data2[2, num] + 1], [data2[1, num], data2[3, num]])
+        |   
+        |      """xdata is the time used for the displacment plots, and ydata(1,2) is the angular displacements for these plots"""
+        |      xdata.append(num/40.0)
+        |      ydata1.append(np.degrees(np.arctan(data2[0,num]/data2[1,num])))
+        |      ydata2.append(np.degrees(np.arctan(data2[2,num]/data2[3,num])))
+        |
+        |      """plot the displacement plots"""
+        |      line4.set_data(xdata, ydata1)
+        |      line5.set_data(xdata, ydata2)
+        |   
+        |      """update spring tension text, time text"""
+        |      theta_text.set_text('Spring Tension: ' + str(abs(round(coupPend.getSpringConstant()*(data2[2,num]-data2[0,num]),1))) + 'N')
+        |      time_text.set_text('t= ' + str(round(num*0.025,1)) + 's')
+        |      return line, line2, line3, line4, line5
+    p The animation object is essentially the same as the one used in the single pendulum simulation. 
+    p It's interesting to see how the energy transfers from pendulum to pendulum. One other thing I'd like to note is that the tension is calculated by ignoring any displacment in the y direction, i.e. this is not a 100% accurate model in that the forces exerted on the masses by the spring only have an x-component.     
+    p You can also see clearly the movement of energy in this system. At certain critical moments, all of the kinetic energy occupies in one pendulum, while the other remains motionless.
+    .container.text-center
+      video(width="70%" autoplay, loop, muted)
+        source(src="assets/cPend25.mp4", type="video/mp4")
+    h2.mt-5 The Double Pendulum
+    p Lastly, we have the double pendulum. Like with the coupled pendulum system, we have two generalized coordinates. One for the angular position of the upper leg of the pendulum, and one for the angular position of the lower leg of the pendulum. Theta will be used for the upper leg, and phi will be used for the lower leg. 
+    p We will start by defining a first order system of equations from the basis vector z consisting of the states of the system, and from that create a system of first order equations that we can plug into the odeint function: 
+    .text-center.my-5
+      img(src="assets/eqns/5.png").eqn
+    p I will skip over the method for animating these equations as it is very similar to the two systems above. The only difference is that we insert different equations into the odeint function, and scale the animation axes appropriately.
+    p If you would like to see the Double Pendulum class in full, you can follow the git link at the top of the page. 
+    .container
+      .row
+        .col-md-6
+          video(width="100%" autoplay, loop, muted)
+            source(src="assets/dPend89.mp4", type="video/mp4")
+          p.text-center Initial Angle = 89 Degrees
+        .col-md-6
+          video(width="100%" autoplay, loop, muted)
+            source(src="assets/dPend90.mp4", type="video/mp4")
+          p.text-center Initial Angle = 90 Degrees
+    p  Here is a pair of simulations where the initial angle differs by a single degree. From these animations side by side, it is easy to see the nonlinear behavior of this system; even after a few moments, the direction and speed of these two systems is totally different.
+    hr.bg-white
 
 
 
