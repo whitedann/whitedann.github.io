@@ -10,7 +10,8 @@ mixin post(postData)
               h2.text-center= postData.title
               p.text-center.font-italic= postData.date
               p.text-center.post-description.pt-5= postData.text
-              h5.click-text.text-center Click to read
+              h5.click-text.text-center
+                span.bg-success.px-3.py-1.rounded Read More
           .col-md-6.post-media
             .flex-vid.pt-0
               video(width='100%', height='100%', loop, muted).post-video
@@ -26,7 +27,8 @@ mixin postWithPicture(postData)
               h2.text-center= postData.title
               p.text-center.font-italic= postData.date
               p.text-center.post-description.pt-5= postData.text
-              h5.click-text.text-center Click to read
+              h5.click-text.text-center
+                span.bg-success.px-3.py-1.rounded Read More
           .col-md-6.post-media
            .flex-img.text-center
              img(src=postData.assetLink).img-fluid.post-img

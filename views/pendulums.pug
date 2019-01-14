@@ -13,14 +13,14 @@ block content
     p In this article, I will explain how to animate some simple physical systems using the Python plotting library matplotlib. 
     p To start, each system is built into a class which has three main members:
     ul
-      li 1. A method which defines and returns the differential equations describing the system's motion. We represent the system with the variable Z.
-      li 2. A method which solves the system of equations and returns the coordinates of each mass for each "step" in time.
-      li 3. An initial state from which the system will kick off.
+      li A method which defines and returns the differential equations describing the system's motion. We represent the system with the variable Z.
+      li A method which solves the system of equations and returns the coordinates of each mass for each "step" in time.
+      li An initial state from which the system will kick off.
     h2 Single Pendulum
-    p We want to draw (x,y) as a function time using from the system of equations:
+    p We want to draw (x,y) as a function time using the system of equations:
     .text-center.my-5
       img(src="assets/eqns/1.png").eqn
-    p We use the built-in function odeint from the SciPy library to solve for the values of theta as a function of time. We need to supply odeint with the function, the initial state and the time axis as paramters. So, we will initialize the pendulum object with init_state at 35 degrees and a time interval of .025 from 0 to 50. This produces 2000 frames which will be rendered at 40fps over 50 seconds.
+    p We use the built-in function odeint from the SciPy library to solve for the values of theta as a function of time. We need to supply SciPy's odeint method with the equations, the initial state and the desired time coordinates as paramters. So, we will initialize the pendulum object with init_state at 35 degrees and a time interval of .025 from 0 to 50. This produces 2000 frames which will be rendered at 40fps over 50 seconds.
     p We can also use this time to define the length of the Pendulum L, and the acceleration due to gravity, g.
     pre.mx-5.p-3.code-block.rounded
       code
@@ -67,7 +67,7 @@ block content
         |   fig = plt.figure()
         |   ax = fig.add_subplot(111)
         |   line, = ax.plot([],[])
-    p Now we need to create a window, "fig", and create a subplot "ax" within it. Then we initialize a tuple of lists called "line" to represent the pendulum. The first list in the tuple represents the x values of the line and the second list represents the y values of the line. 
+    p Afterward we need to create a window, "fig", and create a subplot "ax" within it. Then we initialize a tuple of lists called "line" to represent the pendulum. The first list in the tuple represents the x values of the line and the second list represents the y values of the line. 
     p The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames. We need to make the animate function draw the pendulum for each frame in time by setting the line data to the frame indexed by the incrementing variable "num". Finally, we call the animation function putting in all parameters and save it to the variable "ani":
     pre.mx-5.p-3.code-block.rounded
       code
