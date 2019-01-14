@@ -79,6 +79,10 @@
 	background-color: #B3D7FF;
 }
 
+.eqn {
+	max-width: 150px;
+}
+
 /** Reference for making resizeable "flex video" **/
 /* https://stackoverflow.com/questions/24472016/bootstrap-auto-resize-video-for-screen-size */
 .flex-vid {

@@ -22,6 +22,10 @@ app.get('/game', (req, res) => {
 	res.render('game');
 })
 
+app.get('/pendulums', (req, res) => {
+	res.render('pendulums')
+})
+
 app.get('/music', (req, res) => {
 	res.render('music');
 });

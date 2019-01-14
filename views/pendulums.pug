@@ -1,0 +1,99 @@
+extends layout
+
+block content
+  .col-md-9
+    h1 Using Python to Animate Physical Systems
+    hr.bg-white
+    .text-center.pt-3
+      img(width='50%' src="assets/pendStill.png")
+    .container.text-center.my-3
+      a(href="https://github.com/whitedann/pendulumSimulations")
+        i.fab.fa-lg.fa-github.contact-logo
+    hr.bg-white
+    p In this article, I will explain how to animate some simple physical systems using the Python plotting library matplotlib. 
+    p To start, each system is built into a class which has three main members:
+    ul
+      li 1. A method which defines and returns the differential equations describing the system's motion. We represent the system with the variable Z.
+      li 2. A method which solves the system of equations and returns the coordinates of each mass for each "step" in time.
+      li 3. An initial state from which the system will kick off.
+    h2 Single Pendulum
+    p We want to draw (x,y) as a function time using from the system of equations:
+    .text-center.my-5
+      img(src="assets/eqns/1.png").eqn
+    p We use the built-in function odeint from the SciPy library to solve for the values of theta as a function of time. We need to supply odeint with the function, the initial state and the time axis as paramters. So, we will initialize the pendulum object with init_state at 35 degrees and a time interval of .025 from 0 to 50. This produces 2000 frames which will be rendered at 40fps over 50 seconds.
+    p We can also use this time to define the length of the Pendulum L, and the acceleration due to gravity, g.
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |  import numpy as np
+        |  from matplotlib import pyplot as plt
+        |  from scipy.integrate import odeint
+        |  import matplotlib.animation as animation
+        |
+        |  class Pendulum():
+        |
+        |  """init_state has the form [theta, thetaDot]"""
+        |    def __init__(self,
+        |               g = 9.8,
+        |               L = 2.0):
+        |
+        |      self.init_state = [np.radians(35.0), 0]
+        |      self.time = np.arange(0, 50.0, 0.025) 
+        |      self.g = g
+        |      self.L = L
+    p Now let's create a callable function for odeint that returns the system we want to intergrate, and initialize it to the initial state that we pass to odeint (this will be init_state).
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |    def equation(self, z0,t):
+        |
+        |        theta, thetaDot = z0
+        |        dzdt = [thetaDot, -(self.g/self.L)*sin(theta)]
+        |        return dzdt
+    p Then let's create a function which perfroms the odeint call, and then converts the data into (x,y) coordinates so that we can more easily plot it.
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |    def solve_ODE(self):
+        |       
+        |        self.state = odeint(self.equation, self.init_state, self.time)
+        |        x1 = sin(self.state[:, 0])*self.L
+        |        y1 = -1*cos(self.state[:, 0])*self.L
+        |
+        |        return x1, y1
+    p Outside of the declaration, let's create a pendulum object and call the solve_ODE method on it so we can create the data we need to animate the pendulum and save it as an array.
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |   pend = Pendulum()
+        |   singlePendulumData = np.array(pend.solve_ODE())
+        |
+        |   fig = plt.figure()
+        |   ax = fig.add_subplot(111)
+        |   line, = ax.plot([],[])
+    p Now we need to create a window, "fig", and create a subplot "ax" within it. Then we initialize a tuple of lists called "line" to represent the pendulum. The first list in the tuple represents the x values of the line and the second list represents the y values of the line. 
+    p The method we will use to animate our data, FuncAnimation, takes a figure and repeatedly calls an "animate" function over and over again for the entered number of frames. We need to make the animate function draw the pendulum for each frame in time by setting the line data to the frame indexed by the incrementing variable "num". Finally, we call the animation function putting in all parameters and save it to the variable "ani":
+    pre.mx-5.p-3.code-block.rounded
+      code
+        |   def animateSinglePendulum(num, data, line):
+        |    		line.set_data([0,data[0,num]], [0,data[1,num]])
+        |    		return line
+        |
+        |   ani = animation.FuncAnimation(fig, animateSinglePendulum,
+        |         interval=1, frames=2000, fargs=(singlePendulumData, line),
+        |         init_func=initSinglePendulumWindow, repeat=False)
+    p Below are simulations using two different initial angles, 15 and 35 degrees. In each simulation, there  is a red and blue pendulum. The red pendulum represents the data that we got from integrating the equations shown above with SciPy's odeint utility. The blue pendulum represents the data that we would get if we integrated the equations using the less accurate "small-angle approximation" that is often used to solve the equations without a computer integrater. You can see how the approximation differs from the integrated solution pretty quickly, especially for a larger initial angle.  
+    .container
+      .row
+        .col-md-6
+          video(width="100%" autoplay, loop, muted)
+            source(src="assets/sPend15.mp4", type="video/mp4")
+          p.text-center Initial Angle = 15 Degrees
+        .col-md-6
+          video(width="100%" autoplay, loop, muted)
+            source(src="assets/sPend35.mp4", type="video/mp4")
+          p.text-center Initial Angle = 35 Degrees
+    h2 Two Coupled Pendulums
+    p We can animate a system of two coupled pendulums in a similar way. We'll start with the equations of motion:
+    
+          
+
+
+
+    
