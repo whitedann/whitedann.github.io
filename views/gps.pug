@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  .col-md-9
+    h1 GPS Speedometer
+    hr.bg-white
+    .text-center
+      img(width="50%" src="assets/gpsPic2.png").rounded.img-thumbnail
+      .container.text-center.my-3
+        a(href="https://github.com/whitedann/GPS1")
+          i.fab.fa-lg.fa-github.contact-logo
+    hr.bg-white
+    p You can easily interface a GPS chip like this one with an an Arduino micro-controller and make some pretty cool projects. I decided to make a simple speedometer/odometer for my bike.
+    p For this to work, we need to retrieve the relevant data from the GPS module, then process it using the Arduino before outputting it to the LCD screen. The device will also need to be powered by a battery so we can carry it around freely.
+    p How do we get output from the module? The receiver chip has two serial pins which send and receive data, both of which are connected to ports on the Arduino that have been programmed to send(TX) and receive(RX) serial data. By default, the module outputs data in NMEA format. NMEA data consists of strings of sentences, the first word of which defines the values of the rest of the string. Here is an example of a single sentence of NMEA data:
+    pre.text-center.code-block.mx-5.p-3.rounded
+      code
+        |$GPRMC,092751.000,A,03424.698,N,11951.976,W,0.06,31.66,280511,003.1,,,A*45
+    p What this data means: 
+    pre.code-block.mx-5.p-3.rounded
+      code
+        |GPRMC         indicates the type of output sentence
+        |092751        is the time taken at 9:27:51 UTC
+        |A             Status = Active (Alt V = Void)
+        |03424.698,N   Latitude 34 degrees 24.698 minutes North
+        |11951.976,W   Longitude 119 degrees 51.976 Minutes West
+        |0.06          Ground speed in knots
+        |084.4         Track angle in degrees
+        |280511        Date 28th of May 2011
+        |003.1         Magnetic variation
+        |A*45          Checksum
+    p In this case, we are only really interested in the speed data which lies behind the 7th comma in the string. We can write some code to parse the string with this in mind. Pretty simple!
+    pre.code-block.mx-3.p-3.rounded
+      code
+        |/*parses through NMEA string using commas as delimiters */
+        |
+        | void dataParse(int section) {    
+        |   char nextChar;                                  
+        |   int commas = 0;
+        |   for (int x = 0; x &lt; dataStr.length(); x++) { 
+        |     nextChar = dataStr.charAt(x);
+        |     if (nextChar == ',') {                /*If comma is found, */
+        |       commas++;                           /* increment comma counter and continue*/
+        |       continue;
+        |     }
+        |     if (commas == section) {              /*"section" refers will be equal to 7 */
+        |       returnStr.concat(nextChar);         /* because speed data is after 7th comma */
+        |     }                                         
+        |     else if (commas &gt; section) {          /*After we have passed the speed data,*/
+        |       break;                              /* we start over on the next string*/
+        |     }
+        |   }  
+        | }
+    p With the data in hand, we can do a little formatting and use the arduino to output this to our LCD screen.
+    p Here is a schematic for how I hooked everything up:
+    .container.text-center.my-3
+      img(width="70%", src="assets/gpsSchematic.png").rounded
+    p On a brand new 9V battery, this device dies after only about 4 hours of use. Yikes! I think you could probably make this last a lot longer if you put a resister on the ground pin of both the arduino and the LCD screen. 4 hours is not really very useful. Also a button which could turn off the device while saving odometer data would be good too.
+    hr.bg-white

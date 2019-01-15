@@ -19,7 +19,7 @@ block content
     h2 Single Pendulum
     p We want to draw (x,y) as a function time using the system of equations:
     .text-center.my-5
-      img(src="assets/eqns/1.png").eqn
+      img(src="assets/eqns/1.png").eqn-double
     p We use the built-in function odeint from the SciPy library to solve for the values of theta as a function of time. We need to supply SciPy's odeint method with the equations, the initial state and the desired time coordinates as paramters. So, we will initialize the pendulum object with init_state at 35 degrees and a time interval of .025 from 0 to 50. This produces 2000 frames which will be rendered at 40fps over 50 seconds.
     p We can also use this time to define the length of the Pendulum L, and the acceleration due to gravity, g.
     pre.mx-5.p-3.code-block.rounded
@@ -92,7 +92,7 @@ block content
     h2.mt-5 Two Coupled Pendulums
     p We can animate a system of two coupled pendulums in a similar way. We'll start with the equations of motion:
     .text-center.my-5
-      img(src="assets/eqns/2.png").eqn
+      img(src="assets/eqns/2.png").eqn-double
     p Where theta is the angle of the left pendulum and phi is the angle of the right pendulum. Using lagrangian mechanics we produce the relations: 
     .text-center.my-5
       img(src="assets/eqns/3.png").eqnlong
@@ -176,7 +176,7 @@ block content
     p Lastly, we have the double pendulum. Like with the coupled pendulum system, we have two generalized coordinates. One for the angular position of the upper leg of the pendulum, and one for the angular position of the lower leg of the pendulum. Theta will be used for the upper leg, and phi will be used for the lower leg. 
     p We will start by defining a first order system of equations from the basis vector z consisting of the states of the system, and from that create a system of first order equations that we can plug into the odeint function: 
     .text-center.my-5
-      img(src="assets/eqns/5.png").eqn
+      img(src="assets/eqns/5.png").eqn-double
     p I will skip over the method for animating these equations as it is very similar to the two systems above. The only difference is that we insert different equations into the odeint function, and scale the animation axes appropriately.
     p If you would like to see the Double Pendulum class in full, you can follow the git link at the top of the page. 
     .container

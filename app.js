@@ -26,6 +26,14 @@ app.get('/pendulums', (req, res) => {
 	res.render('pendulums.pug');
 })
 
+app.get('/gps', (req, res) => {
+	res.render('gps.pug');
+})
+
+app.get('/radio', (req, res) => {
+	res.render('radio.pug');
+})
+
 app.get('/music', (req, res) => {
 	res.render('music');
 });

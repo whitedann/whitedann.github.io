@@ -64,6 +64,10 @@
 	opacity: 0;
 }
 
+.link-text {
+	color: #00ff84;
+}
+
 .post-video {
 	opacity: .75;
 }
@@ -80,12 +84,12 @@
 	background-color: #B3D7FF;
 }
 
-.eqn {
-	max-width: 150px;
+.eqn-double {
+	max-width: 250px;
 }
 
 .eqnlong {
-	max-width: 300px;
+	max-width: 400px;
 }
 
 /** Reference for making resizeable "flex video" **/
