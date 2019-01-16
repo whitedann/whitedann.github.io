@@ -1,0 +1,109 @@
+/* New !!! */
+.inline-list-item {
+	display: inline-block;
+}
+
+.nav-first {
+	margin-top: 1rem;
+}
+
+.nav-second {
+	margin-top: 1rem;
+}
+
+.nav-item > a:hover{
+	color: #c0d6f9 !important;
+}
+
+.contact-logo {
+	color: white;
+	padding: .1rem;
+}
+
+.wrapper{
+	background-color: #007bff !important;
+	color: white;
+	border: 1px solid white;
+}
+
+.wrapper:hover{
+	background-color: #0071ea !important;
+}
+
+.post-title {
+	display: relative;
+	align-items: center;
+	top: 75px;
+	height: 100%;
+}
+
+.post-media {
+	background-color: #00ff84;
+	padding-right: 0;
+	margin-right: 0;
+}
+
+.post-description {
+	opacity: 0.0;
+	position: relative;
+	top: -10px;
+}
+
+.click-text {
+	opacity: 0.0;
+	position: relative;
+	top: -15px;
+}
+
+.row {
+	margin: 0;
+}
+
+.click-div {
+	background-color: #4da3ff;
+	opacity: 0;
+}
+
+.link-text {
+	color: #00ff84;
+}
+
+.post-video {
+	opacity: .75;
+}
+
+.post-img {
+	opacity: .75;
+}
+
+.content-back {
+	background-color: #4da3ff
+}
+
+.code-block {
+	background-color: #B3D7FF;
+}
+
+.eqn-double {
+	max-width: 250px;
+}
+
+.eqnlong {
+	max-width: 400px;
+}
+
+/** Reference for making resizeable "flex video" **/
+/* https://stackoverflow.com/questions/24472016/bootstrap-auto-resize-video-for-screen-size */
+.flex-vid {
+	width: 100%;
+	height: 100%;
+	padding-bottom: 0;
+	background-color: #4da3ff;
+}
+
+.flex-img {
+	width:100%;
+	height: 100%;
+	padding-bottom: 0;
+	background-color: #4da3ff;
+}
