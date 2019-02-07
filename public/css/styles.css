@@ -1,4 +1,12 @@
 /* New !!! */
+.bg-lightblue {
+	background-color: #7BBCFF
+}
+
+.top {
+	height: 100% !important;
+}
+
 .inline-list-item {
 	display: inline-block;
 }
