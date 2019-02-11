@@ -1,11 +1,10 @@
 extends layout.pug
 
 block content
-  .col-md-9.bg-lightblue.text-dark.pt-3
+  .col-md-9.bg-light.text-dark.p-4
     h1.font-weight-bold.mb-2 Resume
-    p I currently work as a scientist in biotech, but I am trying to make the transition into a software-oriented postion.
-    p I have independantly developed software tools for my lab which have been well received by my managers and colleagues. I also have many personal projects ranging from web development to game programming. 
-    p You can see my skills, employment history, and educational background below. You can look some of my work on the #[a(href="/projects") projects page] and on #[a(href="https://github.com/whitedann") Github]. You can also download my resume as a pdf.
+    p I currently work in biotech at #[a(href="https://idtdna.com/") Integrated DNA Technologies] where I synthesize and QC oligonucleotides. My current interests include data science and web development, so I am attempting make a career transition into that area. 
+    p I have independantly developed software tools for my lab which have been well received by my managers and colleagues. I also have many personal projects ranging from web development to game programming. You can see my skills, employment history, and educational background below. You can look some of my work on the #[a(href="/projects") projects page] and on #[a(href="https://github.com/whitedann") Github]. You can also download my resume as a pdf.
     h2.font-weight-light Skills 
     table.table
       tbody
@@ -17,26 +16,26 @@ block content
           td #[a(href="https://expressjs.com") Express.js], #[a(href="https://jquery.com") jQuery], #[a(href="https://facebook.github.io/react/") React], #[a(href="https://getbootstrap.com") Bootstrap], #[a(href="https://openjfx.io") JavaFX], #[a(href="http://www.numpy.org") NumPy], #[a(href="https://matplotlib.org") Matplotlib]
         tr
           th(scope="row") Tools 
-          td Git, Maven, Babel, Vim, HTTP APIs
+          td #[a(href="https://git-scm.com") Git], #[a(href="https://maven.apache.org") Maven], #[a(href="https://babeljs.io") Babel], #[a(href="https://www.vim.org") Vim], HTTP APIs
         tr
           th(scope="row") DevOps
-          td AWS EC2, Homebrew, Nginx, SSH
+          td #[a(href="https://aws.amazon.com") AWS], #[a(href="https://www.nginx.com") Nginx], #[a(href="http://www.openssh.com") SSH]
         tr.border-bottom
           th(scope="row") Testing
-          td Java JUnit, JavaScript Mocha
+          td #[a(href="https://junit.org/junit5/") JUnit], #[a(href="https://mochajs.org") Mocha]
     h2.font-weight-light Experience 
     .font-weight-bold Production Scientist II at #[a(href="https://www.idtdna.com/pages") Integrated DNA Technologies]
     .font-italic November 2014-Present
-    p Currently working in a lab that produces custom DNA oligonucleotides. I developed various tools to optimize the production process including:
+    p Currently working in a lab that produces custom DNA oligonucleotides. I have developed various tools to streamline the production process including:
     ul 
-      li vCheck: A GUI JavaFX application to streamline a quality control process that gives employees a visual way of passing/failing final product and decreases the overall process time of final product by 50%.
-      li Patches: A command line tool for merging multiple text data files into a single, aggregate file. 
+      li #[a(href="") vCheck]: A GUI JavaFX application to streamline a quality control process that gives employees a visual way of passing/failing final product and decreases the overall process time of final product by 50%.
+      li #[a(href="") Patches]: A command line tool for merging multiple text data files into a single, aggregate file. 
     p My primary duties include synthesizing, purifying and performing quality control sampling and anlysis on oligonucleotides for academic and industrial use.
     h2.font-weight-light Projects
     .font-weight-bold Pilcrow
     a(href="http://54.153.22.135") www.pilcrow.com
     p A publically available web application where registered users take turns writing to a writing a story. After one hundred submissions, the thread closes and everyone can read it.
-    p It is a fullstack MERN application that presists users, threads and entrys with a RESTful API built with MongoDB and Express.js. The front-end is rendered with a mixture of static HTML/CSS using  #[a( href='https://pugjs.org/api/getting-started.html' ) pug], as well as ReactJS for the dynamic portions.
+    p It is a fullstack MERN application that presists users, threads and entrys with a RESTful API built with MongoDB and Express.js. The front-end is rendered with a mixture of static HTML/CSS using  #[a( href='https://pugjs.org/api/getting-started.html' ) pug], as well as ReactJS for the dynamic components.
     h2.font-weight-bold Education
     .font-weight-bold Bachelor's Degree (B.S.) in Physics
     p #[a(href="https://www.ucsb.edu") University of California, Santa Barbara], 2009-2013

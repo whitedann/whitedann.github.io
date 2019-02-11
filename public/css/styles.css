@@ -1,10 +1,24 @@
 /* New !!! */
 .bg-lightblue {
-	background-color: #7BBCFF
+	background-color: #B0E2F7
 }
 
 .top {
 	height: 100% !important;
+	min-height: calc(100vh);
+}
+
+.resume:hover + .res{
+	opacity: 1;
+}
+
+.res{
+	opacity: 0;
+	color: black;
+}
+
+.res:hover {
+	opacity: 1;
 }
 
 .inline-list-item {
@@ -26,6 +40,10 @@
 .contact-logo {
 	color: white;
 	padding: .1rem;
+}
+
+.contact-logo:hover {
+	color:black;
 }
 
 .wrapper{

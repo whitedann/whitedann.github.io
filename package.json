@@ -19,6 +19,7 @@
   "homepage": "https://github.com/whitedann/whitedann.github.io#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "nodemon": "^1.18.9",
     "pug": "^2.0.3"
   }
