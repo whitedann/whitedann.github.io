@@ -25,8 +25,12 @@ router.get('/resume', (req, res) => {
 //Renders resume PDF in browser
 router.get('/resume/DanielWhite\'sResume.pdf', (req, res) => {
 	const resuPath = "assets/DanielWhitesResume.pdf";
-	res.sendFile(path.join(__dirname, '../public/assets/DanielWhite\'sResume.pdf'))
+	res.sendFile(path.join(__dirname, '../public/assets/DanielWhite\'sResume.pdf'));
 });
+
+router.get('/resume/template.pdf' (req, res) => {
+	res.sendFile(path.join(__dirname, '../public/assets/TemplateResume.pdf'));
+})
 
 //GET /resume
 //Renders blog page
