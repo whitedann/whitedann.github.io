@@ -1,31 +1,32 @@
-.col-md-3.mt-3
-  .row
-    .logo-block.col
+.col-md-4.my-5
+  .container
+    .logo-block.text-center
       a(href="/")
-        img(src="static/assets/logo.png").img-fluid.p-2.rounded
-      .contact-block
-        .h5.text-center.font-weight-bold Daniel White
-        ul.list-inline.text-center
-          li.inline-list-item
-            a(href="mailto:whitedann@gmail.com" title="Email: whitedann@gmail.com")
-              i.fa.fa-lg.fa-envelope.contact-logo
-          li.inline-list-item
-            a(href="https://github.com/whitedann" title="Github Profile")
-              i.fab.fa-lg.fa-github.contact-logo
-          li.inline-list-item
-            a(href="https://www.linkedin.com/in/daniel-white-76434a66/" title="LinkedIn Profile" rel="me")
-              i.fab.fa-lg.fa-linkedin.contact-logo
+        img(src="static/assets/logo.png" width="200px").img-fluid
+    .contact-block.container
+      .h1.text-center.font-weight-light.my-3 Daniel Joseph White
+      ul.list-inline.text-center
+        li.inline-list-item
+          a(href="mailto:whitedann@gmail.com" title="Email: whitedann@gmail.com")
+            i.fa.fa-lg.fa-envelope.contact-logo
+        li.inline-list-item
+          a(href="https://github.com/whitedann" title="Github Profile")
+            i.fab.fa-lg.fa-github.contact-logo
+        li.inline-list-item
+          a(href="https://www.linkedin.com/in/daniel-white-76434a66/" title="LinkedIn Profile" rel="me")
+            i.fab.fa-lg.fa-linkedin.contact-logo
+    .container.directory-container
       hr.bg-white
       ul.nav.nav-first.flex-column
         li.nav-item
-          a(href="/").text-decoration-none.text-reset Home
+          a.h3(href="/").text-decoration-none.text-reset Home
         li.nav-item
-          a(href="/blog").text-decoration-none.text-reset Blog
+          a.h3(href="/blog").text-decoration-none.text-reset Blog
         li.nav-item
-          a(href="/projects").text-decoration-none.text-reset Projects
+          a.h3(href="/projects").text-decoration-none.text-reset Projects
       ul.nav.nav-second.flex-column
         li.nav-item
-          a(href="/resume").text-decoration-none.text-reset.resume Resume
+          a.h3(href="/resume").text-decoration-none.text-reset.resume Resume
             a.ml-1.res(href="/resume/DanielWhite'sResume.pdf")
               i.far.fa-file-pdf(title="PDF Resume")
       hr.bg-white

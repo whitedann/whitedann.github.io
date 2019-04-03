@@ -21,6 +21,10 @@
 	opacity: 1;
 }
 
+.directory-container {
+	margin: 0rem;
+}
+
 .inline-list-item {
 	display: inline-block;
 }
@@ -30,7 +34,7 @@
 }
 
 .nav-second {
-	margin-top: 1rem;
+	margin-top: 5rem;
 }
 
 .nav-item > a:hover{
