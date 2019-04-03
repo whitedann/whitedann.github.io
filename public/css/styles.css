@@ -8,6 +8,10 @@
 	min-height: calc(100vh);
 }
 
+body {
+	zoom: 100%;
+}
+
 .resume:hover + .res{
 	opacity: 1;
 }
@@ -22,7 +26,9 @@
 }
 
 .directory-container {
-	margin: 0rem;
+	padding-right: 3rem;
+	padding-left: 3rem;
+
 }
 
 .inline-list-item {
@@ -136,4 +142,9 @@
 	height: 100%;
 	padding-bottom: 0;
 	background-color: #4da3ff;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
 }
